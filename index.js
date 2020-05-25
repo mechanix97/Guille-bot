@@ -1,4 +1,3 @@
-//nodemon --inspect index.js 
 const Discord = require('discord.js');
  const client = new Discord.Client();
 
@@ -34,6 +33,7 @@ var sonidos = {
   'g!walter':'data/walter.mp3',
   'g!gil':'data/gil.mp3',
   'g!sorete':'data/sorete.mp3'
+  'g!enserio':'data/enserio.mp3'
 };
 
 client.on('message', msg => {
