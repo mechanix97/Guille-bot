@@ -33,7 +33,8 @@ var sonidos = {
   'g!walter':'data/walter.mp3',
   'g!gil':'data/gil.mp3',
   'g!sorete':'data/sorete.mp3',
-  'g!enserio':'data/enserio.mp3'
+  'g!enserio':'data/enserio.mp3',
+  'g!concha':'data/concha.mp3'
 };
 
 client.on('message', msg => {
