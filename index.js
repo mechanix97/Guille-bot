@@ -1,4 +1,4 @@
-//nodemon --inspect index.js
+//nodemon --inspect index.js 
 const Discord = require('discord.js');
  const client = new Discord.Client();
 
