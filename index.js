@@ -32,7 +32,7 @@ var sonidos = {
   'g!rapido':'data/rapido.mp3',
   'g!walter':'data/walter.mp3',
   'g!gil':'data/gil.mp3',
-  'g!sorete':'data/sorete.mp3'
+  'g!sorete':'data/sorete.mp3',
   'g!enserio':'data/enserio.mp3'
 };
 
