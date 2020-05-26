@@ -19,6 +19,7 @@ function reproducirSonido(msg,archivo){
 		_repr(channel,archivo);
   	}	
 }
+
 function _repr(channel,archivo){
 	channel.join().then(conn => {
 		const dispatcher = conn.play(archivo);
@@ -29,6 +30,27 @@ function _repr(channel,archivo){
 			dispatcher.on('error', console.error);
 		});
 }
+
+function loquendo(msg){
+	var str = msg.content;
+	var res = str.split(" ");
+	var text = '';
+	if(res[1]){
+		for(var i = 1 ; i<res.length; i++){
+			text = text.concat(res[i],' ');
+		}
+		txtomp3.saveMP3(text, 'temp/temp.mp3',{tl: 'es'} ,function(err, absoluteFilePath){
+		  	if(err){
+			    console.log(err);
+			    return;
+		  	}
+		});
+		reproducirSonido(msg,'temp/temp.mp3');
+	} else {
+		msg.reply("Pone un mensaje, bola.");
+	}
+}
+
 var sonidos = {
   'g!soseluno':'data/soseluno.mp3',
   'g!gracias':'data/gracias.mp3',
@@ -72,23 +94,7 @@ client.on('message', msg => {
 	} else if(msg.content === 'g!guillote'){
 		msg.reply('Que onda mono?',{files: ['data/profile.png']});
 	} else if(msg.content.startsWith('g!loquendo')){
-		var str = msg.content;
-		var res = str.split(" ");
-		var text = '';
-		if(res[1]){
-			for(var i = 1 ; i<res.length; i++){
-				text = text.concat(res[i],' ');
-			}
-			txtomp3.saveMP3(text, 'temp/temp.mp3',{tl: 'es'} ,function(err, absoluteFilePath){
-			  	if(err){
-				    console.log(err);
-				    return;
-			  	}
-			});
-			reproducirSonido(msg,'temp/temp.mp3');
-		} else {
-			msg.reply("Pone un mensaje, bola.");
-		}
+		loquendo(msg);
 	} else {
 		for(var key in sonidos){
 			if(msg.content === key){
