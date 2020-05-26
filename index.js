@@ -10,14 +10,14 @@ function reproducirSonido(msg,archivo){
 	//console.log(client.voice.client);
 	//let voiceChannelGet = client.channels.get(notification.voiceChannel);
 	//console.log(client.voiceConnections.get(GuildID).channel.id);
-	client.voice.connections.map(voiceConnection => console.log(voiceConnection));
+	client.voice.connections.map(voiceConnection => console.log(voiceConnection.size));
 	const channel = msg.member.voice.channel;
 	if (!channel){
 		return msg.channel.send("No estas en ningún canal de voz, pavo.");	
 	}
 	channel.join().then(conn => {
 		const dispatcher = conn.play(archivo);
-		client.voice.connections.map(voiceConnection => console.log(voiceConnection));			
+		client.voice.connections.map(voiceConnection => console.log(voiceConnection.size));			
 		dispatcher.on('finish', () => {
 			conn.disconnect();
 		});
