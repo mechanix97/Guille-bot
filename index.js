@@ -34,12 +34,24 @@ var sonidos = {
   'g!gil':'data/gil.mp3',
   'g!sorete':'data/sorete.mp3',
   'g!enserio':'data/enserio.mp3',
-  'g!concha':'data/concha.mp3'
+  'g!concha':'data/concha.mp3',
+  'g!definicion':'data/Elchabonesladefdepelotudo.mp3',
+  'g!boludo':'data/Esboludo.mp3',
+  'g!pajero':'data/Esmediopajero.mp3',
+  'g!malardo':'data/Malardo.mp3',
+  'g!estudiar':'data/Pajaestudiar.mp3',
+  'g!palos':'data/Palos.mp3',
+  'g!perro':'data/Queondaperro.mp3',
+  'g!facil':'data/Refacilhdp.mp3',
+  'g!tremenda':'data/Tremendaverga.mp3',
 };
 
 client.on('message', msg => {
 	if (msg.content === 'g!help'){
-		var cadena ='Comandos:';
+		msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo [WIP]')
+	}
+	if (msg.content === 'g!sonidos'){
+		var cadena ='Sonidos:';
 		for(var key in sonidos){
 			cadena = cadena.concat('\n\t',key);
 		}
