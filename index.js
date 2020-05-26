@@ -50,13 +50,16 @@ var sonidos = {
 client.on('message', msg => {
 	if (msg.content === 'g!help'){
 		msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo [WIP]')
-	}
-	if (msg.content === 'g!sonidos'){
+	} else if (msg.content === 'g!sonidos'){
 		var cadena ='Sonidos:';
 		for(var key in sonidos){
 			cadena = cadena.concat('\n\t',key);
 		}
 		msg.reply(cadena);
+	} else if(msg.content === 'g!guillote'){
+		msg.channel.send('frase',{files: ['data/profile.png']});
+	} else if(msg.content.startsWith('g!loquendo')){
+		msg.reply("Todavia no lo implmente papurri.");
 	} else {
 		for(var key in sonidos){
 			if(msg.content === key){
