@@ -5,27 +5,32 @@ client.on('ready', () => {
  console.log(`Logged in as ${client.user.tag}!`);
  });
 
-function reproducirSonido(msg,archivo){
-	while(client.voice.connections.size != 0){	
-		console.log(client.voice.connections.size);
-	}
-	//console.log(client.voice.client);
-	//let voiceChannelGet = client.channels.get(notification.voiceChannel);
-	//console.log(client.voiceConnections.get(GuildID).channel.id);
-	
-	const channel = msg.member.voice.channel;
-	if (!channel){
-		return msg.channel.send("No estas en ningún canal de voz, pavo.");	
-	}
-	channel.join().then(conn => {
-		const dispatcher = conn.play(archivo);
-		dispatcher.on('finish', () => {
-			conn.disconnect();
-		});
-		dispatcher.on('error', console.error);
-	});
-}
 
+
+function reproducirSonido(msg,archivo){
+	if (client.voice.connections.size){
+    	setTimeout(reproducirSonido,1000,msg,archivo);
+  	} else {
+		const channel = msg.member.voice.channel;
+		if (!channel){
+			return msg.channel.send("No estas en ningún canal de voz, pavo.");	
+		}
+		_repr(channel,archivo);
+  	}	
+}
+function _repr(channel,archivo){
+	console.log("REP");
+	channel.join().then(conn => {
+			console.log("conectado");
+			const dispatcher = conn.play(archivo);
+			dispatcher.on('finish', () => {
+				//conn.disconnect();
+				channel.leave();
+				dispatcher.destroy();
+			});
+			dispatcher.on('error', console.error);
+		});
+}
 var sonidos = {
   'g!soseluno':'data/soseluno.mp3',
   'g!gracias':'data/gracias.mp3',
@@ -67,7 +72,7 @@ client.on('message', msg => {
 		}
 		msg.reply(cadena);
 	} else if(msg.content === 'g!guillote'){
-		msg.channel.send('frase',{files: ['data/profile.png']});
+		msg.channel.send('Que onda mono?',{files: ['data/profile.png']});
 	} else if(msg.content.startsWith('g!loquendo')){
 		msg.reply("Todavia no lo implmente papurri.");
 	} else {
