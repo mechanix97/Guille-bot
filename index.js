@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
- const client = new Discord.Client();
+var txtomp3 = require("text-to-mp3");
+const client = new Discord.Client();
 
 client.on('ready', () => {
  console.log(`Logged in as ${client.user.tag}!`);
@@ -61,7 +62,7 @@ var sonidos = {
 
 client.on('message', msg => {
 	if (msg.content === 'g!help'){
-		msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo [WIP]')
+		msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo')
 	} else if (msg.content === 'g!sonidos'){
 		var cadena ='Sonidos:';
 		for(var key in sonidos){
@@ -69,9 +70,25 @@ client.on('message', msg => {
 		}
 		msg.reply(cadena);
 	} else if(msg.content === 'g!guillote'){
-		msg.channel.send('Que onda mono?',{files: ['data/profile.png']});
+		msg.reply('Que onda mono?',{files: ['data/profile.png']});
 	} else if(msg.content.startsWith('g!loquendo')){
-		msg.reply("Todavia no lo implmente papurri.");
+		var str = msg.content;
+		var res = str.split(" ");
+		var text = '';
+		if(res[1]){
+			for(var i = 1 ; i<res.length; i++){
+				text = text.concat(res[i],' ');
+			}
+			txtomp3.saveMP3(text, 'temp/temp.mp3', function(err, absoluteFilePath){
+			  	if(err){
+				    console.log(err);
+				    return;
+			  	}
+			});
+			reproducirSonido(msg,'temp/temp.mp3');
+		} else {
+			msg.reply("Pone un mensaje, bola.");
+		}
 	} else {
 		for(var key in sonidos){
 			if(msg.content === key){
