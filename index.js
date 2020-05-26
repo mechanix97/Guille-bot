@@ -44,6 +44,7 @@ var sonidos = {
   'g!perro':'data/Queondaperro.mp3',
   'g!facil':'data/Refacilhdp.mp3',
   'g!tremenda':'data/Tremendaverga.mp3',
+  'g!onfire':'data/Onfire.mp3'
 };
 
 client.on('message', msg => {
