@@ -6,6 +6,9 @@ client.on('ready', () => {
  });
 
 function reproducirSonido(msg,archivo){
+	while(client.voiceConnections.size != 0){
+
+	}
 	const channel = msg.member.voice.channel;
 	channel.join().then(conn => {
 		const dispatcher = conn.play(archivo);
