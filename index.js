@@ -17,7 +17,8 @@ function reproducirSonido(msg,archivo){
 	}
 	channel.join().then(conn => {
 		const dispatcher = conn.play(archivo);
-			dispatcher.on('finish', () => {
+		client.voice.connections.map(voiceConnection => console.log(voiceConnection));			
+		dispatcher.on('finish', () => {
 			conn.disconnect();
 		});
 		dispatcher.on('error', console.error);
