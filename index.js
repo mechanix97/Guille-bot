@@ -9,6 +9,8 @@ function reproducirSonido(msg,archivo){
 	//while(client.voiceConnections.size != 0){	}
 	//console.log(client.voice.client);
 	//let voiceChannelGet = client.channels.get(notification.voiceChannel);
+	//console.log(client.voiceConnections.get(GuildID).channel.id);
+	client.voice.connections.map(voiceConnection => console.log(voiceConnection));
 	const channel = msg.member.voice.channel;
 	if (!channel){
 		return msg.channel.send("No estas en ningún canal de voz, pavo.");	
