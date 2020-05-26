@@ -79,7 +79,7 @@ client.on('message', msg => {
 			for(var i = 1 ; i<res.length; i++){
 				text = text.concat(res[i],' ');
 			}
-			txtomp3.saveMP3(text, 'temp/temp.mp3',{ tl: 'es'} function(err, absoluteFilePath){
+			txtomp3.saveMP3(text, 'temp/temp.mp3',{tl: 'es'} ,function(err, absoluteFilePath){
 			  	if(err){
 				    console.log(err);
 				    return;
