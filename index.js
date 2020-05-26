@@ -7,8 +7,12 @@ client.on('ready', () => {
 
 function reproducirSonido(msg,archivo){
 	//while(client.voiceConnections.size != 0){	}
-	console.log(client.voiceConnections.size);
+	//console.log(client.voice.client);
+	//let voiceChannelGet = client.channels.get(notification.voiceChannel);
 	const channel = msg.member.voice.channel;
+	if (!channel){
+		return msg.channel.send("No estas en ningún canal de voz, pavo.");	
+	}
 	channel.join().then(conn => {
 		const dispatcher = conn.play(archivo);
 			dispatcher.on('finish', () => {
