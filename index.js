@@ -19,13 +19,10 @@ function reproducirSonido(msg,archivo){
   	}	
 }
 function _repr(channel,archivo){
-	console.log("REP");
 	channel.join().then(conn => {
-			console.log("conectado");
-			const dispatcher = conn.play(archivo);
+		const dispatcher = conn.play(archivo);
 			dispatcher.on('finish', () => {
-				//conn.disconnect();
-				channel.leave();
+				conn.disconnect();
 				dispatcher.destroy();
 			});
 			dispatcher.on('error', console.error);
