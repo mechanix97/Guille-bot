@@ -1,3 +1,4 @@
 #ignore node mudules
 node_modules
 deploy.ps1
+ffmpeg.exe

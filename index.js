@@ -6,11 +6,13 @@ client.on('ready', () => {
  });
 
 function reproducirSonido(msg,archivo){
-	//while(client.voiceConnections.size != 0){	}
+	while(client.voice.connections.size != 0){	
+		console.log(client.voice.connections.size);
+	}
 	//console.log(client.voice.client);
 	//let voiceChannelGet = client.channels.get(notification.voiceChannel);
 	//console.log(client.voiceConnections.get(GuildID).channel.id);
-	console.log(client.guilds.voice.connections.status);
+	
 	const channel = msg.member.voice.channel;
 	if (!channel){
 		return msg.channel.send("No estas en ningún canal de voz, pavo.");	
