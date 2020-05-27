@@ -80,9 +80,10 @@ function loquendo(msg, attempt){
 		   	} catch(err){
 		   		console.log(err);
 		   	}
-		}
-		attempt++;
-		setTimeout(loquendo,1000,msg,attempt);
+		} else {
+			attempt++;
+			setTimeout(loquendo,1000,msg,attempt);	
+		}		
 	} else {
 		var str = msg.content;
 		var res = str.split(" ");
