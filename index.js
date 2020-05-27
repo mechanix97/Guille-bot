@@ -71,7 +71,7 @@ function loquendo(msg){
 		for(var i = 1 ; i<res.length; i++){
 			text = text.concat(res[i],' ');
 		}
-		txttomp3.attributes.tl ="es";
+		txtomp3.attributes.tl ="es";
 		txtomp3.saveMP3(text, 'temp/temp.mp3' ,function(err, absoluteFilePath){
 		  	if(err){
 			    console.log(err);
