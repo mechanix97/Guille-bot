@@ -62,7 +62,9 @@ function reproducirSonido(msg,archivo,destruir){
 				}
 			});
 			dispatcher.on('error', console.error);
-		});
+		}).catch(e => {
+        	console.log(e);
+        });
   	}	
 }
 
