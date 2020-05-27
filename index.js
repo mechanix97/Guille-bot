@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 var txtomp3 = require('text-to-mp3');
+var fs = require('fs');
 const client = new Discord.Client();
 
 var sonidos = {
@@ -43,9 +44,9 @@ client.on('ready', () => {
 
 client.login('NzEzNTI0NTE5ODMwMDI4MzY4.XshdJg.5t2rry7WeOsgzPYDyX_wLDxxXLE');
 
-function reproducirSonido(msg,archivo){
+function reproducirSonido(msg,archivo,destruir){
 	if (client.voice.connections.size){
-    	setTimeout(reproducirSonido,1000,msg,archivo);
+    	setTimeout(reproducirSonido,1000,msg,archivo,destruir);
   	} else {
 		const channel = msg.member.voice.channel;
 		if (!channel){
@@ -56,6 +57,9 @@ function reproducirSonido(msg,archivo){
 			dispatcher.on('finish', () => {
 				conn.disconnect();
 				dispatcher.destroy();
+				if(destruir){
+					fs.unlinkSync(archivo);
+				}
 			});
 			dispatcher.on('error', console.error);
 		});
@@ -63,28 +67,34 @@ function reproducirSonido(msg,archivo){
 }
 
 function loquendo(msg){
-	var str = msg.content;
-	var res = str.split(" ");
-	var text = '';
-	if(res.length > 1){
-		for(var i = 1 ; i<res.length; i++){
-			text = text.concat(res[i],' ');
-		}
-		if(text.length > 200){
-			msg.reply('Te exediste de caracteres, papu.');
-			return;
-		}
-		txtomp3.attributes.tl ="es";
-		txtomp3.saveMP3(text, 'temp/temp.mp3' ,function(err, absoluteFilePath){
-		  	if(err){
-			   	msg.reply('Mensaje invalido, monito.');
-			    return;
-		  	} else {
-		  		reproducirSonido(msg,'temp/temp.mp3');
-		  	}
-		});
+	if(fs.existsSync('temp/temp.mp3')){
+		setTimeout(loquendo,1000,msg);
 	} else {
-		msg.reply('Pone un mensaje, bola.');
+		var str = msg.content;
+		var res = str.split(" ");
+		var text = '';
+		if(res.length > 1){
+			for(var i = 1 ; i<res.length; i++){
+				text = text.concat(res[i],' ');
+			}
+			if(text.length > 200){
+				msg.reply('Te exediste de caracteres, papu.');
+				return;
+			}
+			txtomp3.attributes.tl ="es";
+			txtomp3.saveMP3(text, 'temp/temp.mp3' ,function(err, absoluteFilePath){
+			  	if(err){
+				   	msg.reply('Mensaje invalido, monito.');
+				   	fs.unlinkSync('temp/temp.mp3');
+				    return;
+			  	} else {
+			  		reproducirSonido(msg,'temp/temp.mp3',true);
+			  	}
+			  	
+			});
+		} else {
+			msg.reply('Pone un mensaje, bola.');
+		}
 	}
 }
 
@@ -104,7 +114,7 @@ client.on('message', msg => {
 	} else {
 		for(var key in sonidos){
 			if(msg.content === key){
-				reproducirSonido(msg,sonidos[key]);
+				reproducirSonido(msg,sonidos[key],false);
 			}
 		}
 	}
