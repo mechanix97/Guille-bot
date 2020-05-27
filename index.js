@@ -66,7 +66,7 @@ function loquendo(msg){
 	var str = msg.content;
 	var res = str.split(" ");
 	var text = '';
-	console.log(res.size);
+	console.log(res.length);
 	if(res[1]||res[2]){
 		for(var i = 1 ; i<res.length; i++){
 			text = text.concat(res[i],' ');
