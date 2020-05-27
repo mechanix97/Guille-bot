@@ -66,9 +66,13 @@ function reproducirSonido(msg,archivo,destruir){
   	}	
 }
 
-function loquendo(msg){
+function loquendo(msg, attempt){
 	if(fs.existsSync('temp/temp.mp3')){
-		setTimeout(loquendo,1000,msg);
+		if(attempt == 15){
+			fs.unlinkSync('temp/temp.mp3');
+		}
+		attempt++;
+		setTimeout(loquendo,1000,msg,attempt);
 	} else {
 		var str = msg.content;
 		var res = str.split(" ");
