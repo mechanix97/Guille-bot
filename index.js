@@ -83,11 +83,10 @@ function loquendo(msg, attempt){
 			for(var i = 1 ; i<res.length; i++){
 				text = text.concat(res[i],' ');
 			}
-			msg.reply(text.length);
-			/*if(text.length > 200){
+			if(text.length > 200){
 				msg.reply('Te exediste de caracteres, papu.');
 				return;
-			}*/
+			}
 			txtomp3.attributes.tl ="es";
 			txtomp3.saveMP3(text, 'temp/temp.mp3' ,function(err, absoluteFilePath){
 			  	if(err){
