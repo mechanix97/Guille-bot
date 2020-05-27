@@ -33,6 +33,10 @@ var sonidos = {
   'g!onfire':'data/Onfire.mp3'
 };
 
+var options = {
+  tl: 'es'
+}
+
 client.on('ready', () => {
  	console.log(`Logged in as ${client.user.tag}!`);
 });
@@ -67,7 +71,7 @@ function loquendo(msg){
 		for(var i = 1 ; i<res.length; i++){
 			text = text.concat(res[i],' ');
 		}
-		txtomp3.saveMP3(text, 'temp/temp.mp3',{tl: 'es'} ,function(err, absoluteFilePath){
+		txtomp3.saveMP3(text, 'temp/temp.mp3',options ,function(err, absoluteFilePath){
 		  	if(err){
 			    console.log(err);
 			    return;
