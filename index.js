@@ -92,10 +92,10 @@ function loquendo(msg, attempt){
 			for(var i = 1 ; i<res.length; i++){
 				text = text.concat(res[i],' ');
 			}
-			/*if(text.length >= 200){
+			if(text.length >= 200){
 				msg.reply('Te exediste de caracteres, papu.');
 				return;
-			}*/
+			}
 			txtomp3.attributes.tl ="es";
 			txtomp3.saveMP3(text, 'temp/temp.mp3').then(function(absoluteFilePath){
 				reproducirSonido(msg,absoluteFilePath,true);
@@ -116,21 +116,21 @@ function loquendo(msg, attempt){
 }
 
 client.on('message', msg => {
-	if (msg.content === 'g!help'){
+	if (msg.content.toLowerCase() === 'g!help'){
 		msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo')
-	} else if (msg.content === 'g!sonidos'){
+	} else if (msg.content.toLowerCase() === 'g!sonidos'){
 		var cadena ='Sonidos:';
 		for(var key in sonidos){
 			cadena = cadena.concat('\n\t',key);
 		}
 		msg.reply(cadena);
-	} else if(msg.content === 'g!guillote'){
+	} else if(msg.content.toLowerCase() === 'g!guillote'){
 		msg.reply('Que onda mono?',{files: ['data/profile.png']});
 	} else if(msg.content.startsWith('g!loquendo')){
 		loquendo(msg);
 	} else {
 		for(var key in sonidos){
-			if(msg.content === key){
+			if(msg.content.toLowerCase() === key){
 				reproducirSonido(msg,sonidos[key],false);
 			}
 		}
