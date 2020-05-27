@@ -58,7 +58,11 @@ function reproducirSonido(msg,archivo,destruir){
 				conn.disconnect();
 				dispatcher.destroy();
 				if(destruir){
-					fs.unlinkSync(archivo);
+					try{
+				   		fs.unlinkSync(archivo);	
+				   	} catch(err){
+				   		console.log(err);
+				   	}
 				}
 			});
 			dispatcher.on('error', console.error);
@@ -71,7 +75,11 @@ function reproducirSonido(msg,archivo,destruir){
 function loquendo(msg, attempt){
 	if(fs.existsSync('temp/temp.mp3')){
 		if(attempt == 15){
-			fs.unlinkSync('temp/temp.mp3');
+		   	try{
+		   		fs.unlinkSync('temp/temp.mp3');	
+		   	} catch(err){
+		   		console.log(err);
+		   	}
 		}
 		attempt++;
 		setTimeout(loquendo,1000,msg,attempt);
@@ -91,7 +99,11 @@ function loquendo(msg, attempt){
 			txtomp3.saveMP3(text, 'temp/temp.mp3' ,function(err, absoluteFilePath){
 			  	if(err){
 				   	msg.reply('Mensaje invalido, monito.');
-				   	fs.unlinkSync('temp/temp.mp3');
+				   	try{
+				   		fs.unlinkSync('temp/temp.mp3');	
+				   	} catch(err){
+				   		console.log(err);
+				   	}				   	
 				    return;
 			  	} else {
 			  		reproducirSonido(msg,'temp/temp.mp3',true);
