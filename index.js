@@ -91,10 +91,10 @@ function loquendo(msg, attempt){
 			for(var i = 1 ; i<res.length; i++){
 				text = text.concat(res[i],' ');
 			}
-			if(text.length >= 200){
+			/*if(text.length >= 200){
 				msg.reply('Te exediste de caracteres, papu.');
 				return;
-			}
+			}*/
 			txtomp3.attributes.tl ="es";
 			txtomp3.saveMP3(text, 'temp/temp.mp3').then(function(absoluteFilePath){
 				reproducirSonido(msg,absoluteFilePath,true);
@@ -107,21 +107,7 @@ function loquendo(msg, attempt){
 			   		console.log(err);
 			   	}				   	
 			    return;
-			});/*
-			,function(err, absoluteFilePath){
-			  	if(err){
-				   	msg.reply('Mensaje invalido, monito.');
-				   	try{
-				   		fs.unlinkSync('temp/temp.mp3');	
-				   	} catch(err){
-				   		console.log(err);
-				   	}				   	
-				    return;
-			  	} else {
-			  		reproducirSonido(msg,'temp/temp.mp3',true);
-			  	}
-			  	
-			});*/
+			});
 		} else {
 			msg.reply('Pone un mensaje, bola.');
 		}
