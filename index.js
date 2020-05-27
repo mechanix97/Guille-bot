@@ -73,11 +73,12 @@ function loquendo(msg){
 		txtomp3.attributes.tl ="es";
 		txtomp3.saveMP3(text, 'temp/temp.mp3' ,function(err, absoluteFilePath){
 		  	if(err){
-			    console.log(err);
+			   	msg.reply('Mensaje invalido, monito.');
 			    return;
+		  	} else {
+		  		reproducirSonido(msg,'temp/temp.mp3');
 		  	}
 		});
-		reproducirSonido(msg,'temp/temp.mp3');
 	} else {
 		msg.reply('Pone un mensaje, bola.');
 	}
@@ -104,3 +105,5 @@ client.on('message', msg => {
 		}
 	}
 });
+
+
