@@ -2,3 +2,4 @@
 node_modules
 deploy.ps1
 ffmpeg.exe
+temp/temp.mp3
