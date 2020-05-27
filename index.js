@@ -96,7 +96,19 @@ function loquendo(msg, attempt){
 				return;
 			}
 			txtomp3.attributes.tl ="es";
-			txtomp3.saveMP3(text, 'temp/temp.mp3' ,function(err, absoluteFilePath){
+			txtomp3.saveMP3(text, 'temp/temp.mp3').then(function(absoluteFilePath){
+				reproducirSonido(msg,absoluteFilePath,true);
+			}) 
+			.catch(function(err){
+  				msg.reply('Mensaje invalido, monito.');
+			   	try{
+			   		fs.unlinkSync('temp/temp.mp3');	
+			   	} catch(err){
+			   		console.log(err);
+			   	}				   	
+			    return;
+			});/*
+			,function(err, absoluteFilePath){
 			  	if(err){
 				   	msg.reply('Mensaje invalido, monito.');
 				   	try{
@@ -109,7 +121,7 @@ function loquendo(msg, attempt){
 			  		reproducirSonido(msg,'temp/temp.mp3',true);
 			  	}
 			  	
-			});
+			});*/
 		} else {
 			msg.reply('Pone un mensaje, bola.');
 		}
