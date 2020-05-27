@@ -1,55 +1,6 @@
 const Discord = require('discord.js');
-var txtomp3 = require("text-to-mp3");
+var txtomp3 = require('text-to-mp3');
 const client = new Discord.Client();
-
-client.on('ready', () => {
- console.log(`Logged in as ${client.user.tag}!`);
- });
-
-
-
-function reproducirSonido(msg,archivo){
-	if (client.voice.connections.size){
-    	setTimeout(reproducirSonido,1000,msg,archivo);
-  	} else {
-		const channel = msg.member.voice.channel;
-		if (!channel){
-			return msg.channel.send("No estas en ningún canal de voz, pavo.");	
-		}
-		_repr(channel,archivo);
-  	}	
-}
-
-function _repr(channel,archivo){
-	channel.join().then(conn => {
-		const dispatcher = conn.play(archivo);
-			dispatcher.on('finish', () => {
-				conn.disconnect();
-				dispatcher.destroy();
-			});
-			dispatcher.on('error', console.error);
-		});
-}
-
-function loquendo(msg){
-	var str = msg.content;
-	var res = str.split(" ");
-	var text = '';
-	if(res[1]){
-		for(var i = 1 ; i<res.length; i++){
-			text = text.concat(res[i],' ');
-		}
-		txtomp3.saveMP3(text, 'temp/temp.mp3',{tl: 'es'} ,function(err, absoluteFilePath){
-		  	if(err){
-			    console.log(err);
-			    return;
-		  	}
-		});
-		reproducirSonido(msg,'temp/temp.mp3');
-	} else {
-		msg.reply("Pone un mensaje, bola.");
-	}
-}
 
 var sonidos = {
   'g!soseluno':'data/soseluno.mp3',
@@ -82,6 +33,51 @@ var sonidos = {
   'g!onfire':'data/Onfire.mp3'
 };
 
+client.on('ready', () => {
+ 	console.log(`Logged in as ${client.user.tag}!`);
+});
+
+client.login('NzEzNTI0NTE5ODMwMDI4MzY4.XshdJg.5t2rry7WeOsgzPYDyX_wLDxxXLE');
+
+function reproducirSonido(msg,archivo){
+	if (client.voice.connections.size){
+    	setTimeout(reproducirSonido,1000,msg,archivo);
+  	} else {
+		const channel = msg.member.voice.channel;
+		if (!channel){
+			return msg.channel.send('No estas en ningún canal de voz, pavo.');	
+		}
+		channel.join().then(conn => {
+		const dispatcher = conn.play(archivo);
+			dispatcher.on('finish', () => {
+				conn.disconnect();
+				dispatcher.destroy();
+			});
+			dispatcher.on('error', console.error);
+		});
+  	}	
+}
+
+function loquendo(msg){
+	var str = msg.content;
+	var res = str.split(" ");
+	var text = '';
+	if(res.size > 1){
+		for(var i = 1 ; i<res.length; i++){
+			text = text.concat(res[i],' ');
+		}
+		txtomp3.saveMP3(text, 'temp/temp.mp3',{tl: 'es'} ,function(err, absoluteFilePath){
+		  	if(err){
+			    console.log(err);
+			    return;
+		  	}
+		});
+		reproducirSonido(msg,'temp/temp.mp3');
+	} else {
+		msg.reply('Pone un mensaje, bola.');
+	}
+}
+
 client.on('message', msg => {
 	if (msg.content === 'g!help'){
 		msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo')
@@ -103,5 +99,3 @@ client.on('message', msg => {
 		}
 	}
 });
-
-client.login('NzEzNTI0NTE5ODMwMDI4MzY4.XshdJg.5t2rry7WeOsgzPYDyX_wLDxxXLE');
