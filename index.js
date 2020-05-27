@@ -92,6 +92,11 @@ function loquendo(msg, attempt){
 			for(var i = 1 ; i<res.length; i++){
 				text = text.concat(res[i],' ');
 			}
+			text = text.replace(/[á]/g, 'a');
+			text = text.replace(/[é]/g, 'e');
+			text = text.replace(/[í]/g, 'i');
+			text = text.replace(/[ó]/g, 'o');
+			text = text.replace(/[ú]/g, 'u');
 			if(text.length >= 200){
 				msg.reply('Te exediste de caracteres, papu.');
 				return;
