@@ -58,7 +58,7 @@ function reproducirSonido(msg,archivo,destruir){
 		const dispatcher = conn.play(archivo);
 			dispatcher.on('finish', () => {
 				conn.disconnect();
-				dispatcher.destroy();
+				dispatcher.destroy();q2qqqqqqq
 			});
 			dispatcher.on('error', console.error);
 			conn.on('disconnect', () =>{
@@ -123,7 +123,7 @@ function loquendo(msg, attempt){
 
 client.on('message', msg => {
 	if (msg.content.toLowerCase() === 'g!help'){
-		msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo')
+		msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo\n\tg!entrada <ON/OFF> activar entrada epica [WIP].')
 	} else if (msg.content.toLowerCase() === 'g!sonidos'){
 		var cadena ='Sonidos:';
 		for(var key in sonidos){
