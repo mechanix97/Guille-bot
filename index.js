@@ -58,7 +58,7 @@ function reproducirSonido(msg,archivo,destruir){
 		const dispatcher = conn.play(archivo);
 			dispatcher.on('finish', () => {
 				conn.disconnect();
-				dispatcher.destroy();q2qqqqqqq
+				dispatcher.destroy();
 			});
 			dispatcher.on('error', console.error);
 			conn.on('disconnect', () =>{
@@ -145,4 +145,18 @@ client.on('message', msg => {
 	}
 });
 
+client.on('voiceStateUpdate', (oldMember, newMember) => {
+  	let newUserChannel = newMember.voiceChannel
+  	let oldUserChannel = oldMember.voiceChannel
 
+
+  	if(oldUserChannel === undefined && newUserChannel !== undefined) {
+  		setTimeout(() => {
+  			reproducirSonido('data/queondamonito.mp3',false);
+  		}, 1000);
+  	} else if(newUserChannel === undefined){
+
+	   
+
+  	}
+});
