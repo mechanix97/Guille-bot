@@ -59,13 +59,6 @@ function reproducirSonido(msg,archivo,destruir){
 			dispatcher.on('finish', () => {
 				conn.disconnect();
 				dispatcher.destroy();
-				if(destruir){
-					try{
-				   		fs.unlinkSync(archivo);	
-				   	} catch(err){
-				   		console.log(err);
-				   	}
-				}
 			});
 			dispatcher.on('error', console.error);
 			conn.on('disconnect', () =>{
@@ -105,7 +98,7 @@ function loquendo(msg, attempt){
 				text = text.concat(res[i],' ');
 			}
 			text = utf8.encode(text);
-			if(text.length >= 203){
+			if(text.length >= 200){
 				msg.reply('Te exediste de caracteres, papu.');
 				return;
 			}
