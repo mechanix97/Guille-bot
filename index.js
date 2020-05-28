@@ -191,8 +191,7 @@ client.on('message', msg => {
 });
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
-  	if(newMember.channelID != null && newMember.channelID != oldMember.channelID){
-  		console.log(newMember.channel.members.size);
+  	if(newMember.channelID != null && newMember.channelID != oldMember.channelID && newMember.channel.members.size > 1){
   		for(var i = 0; i<arrEntrada.length; i++){
  			if(arrEntrada[i][0] == newMember.id && arrEntrada[i][1] == newMember.guild.id){
   				setTimeout(() => {
