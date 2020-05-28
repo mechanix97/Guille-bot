@@ -40,13 +40,22 @@ var options = {
   tl: 'es'
 }
 
+var arrEntrada = [];
+
 client.on('ready', () => {
  	console.log(`Logged in as ${client.user.tag}!`);
+ 	fs.readFile('bin/entry.json', (err, data) => {
+    	if (err) throw err;
+    	arrEntrada = JSON.parse(data);
+	});	
 });
 
 client.login('NzEzNTI0NTE5ODMwMDI4MzY4.XshdJg.5t2rry7WeOsgzPYDyX_wLDxxXLE');
 
 function reproducirSonido(msg,archivo,destruir){
+	if(msg == null){
+		return;
+	}
 	if (client.voice.connections.size){
     	setTimeout(reproducirSonido,1000,msg,archivo,destruir);
   	} else {
@@ -85,7 +94,7 @@ function loquendo(msg, attempt){
 		   		fs.unlinkSync('temp/temp.mp3');	
 		   	} catch(err){
 		   		console.log(err);
-		   	}
+		   	} 
 		}
 		attempt=attempt+1;
 		setTimeout(loquendo,500,msg,attempt);		
@@ -121,9 +130,45 @@ function loquendo(msg, attempt){
 	}
 }
 
+function entrada(msg){
+	var str = msg.content;
+	var res = str.split(" ");
+	var text = '';
+	if(res.length > 1){
+		for(var i = 1 ; i<res.length; i++){
+			text = text.concat(res[i]);
+		}
+	}
+	if(text.toLowerCase() === 'on'){
+		const index = arrEntrada.indexOf([msg.author.id, msg.guild.id]);
+		if(index == -1){
+			arrEntrada.push([msg.author.id, msg.guild.id]);
+		}		
+	} else if(text.toLowerCase() === 'off'){
+		const index = arrEntrada.indexOf([msg.author.id, msg.guild.id]);
+		if (index > -1) {
+		  arrEntrada.splice(index, 1);
+		}
+	} else if(text.toLowerCase() === 'reset'){
+		arrEntrada = [];
+	} else if(text.toLowerCase() === 'status'){
+		console.log("g!entrara",arrEntrada);
+	}
+	 else {
+		msg.reply("El comando se usa:\n\tg!entrada <ON/OFF>");
+		return;
+	}	
+ 	const jsonContent = JSON.stringify(arrEntrada);
+	fs.writeFile("bin/entry.json", jsonContent, 'utf8', function (err) {
+	    if (err) {
+	        console.log(err);
+	    }
+	}); 
+}
+
 client.on('message', msg => {
 	if (msg.content.toLowerCase() === 'g!help'){
-		msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo\n\tg!entrada <ON/OFF> activar entrada epica [WIP].')
+		msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo\n\tg!entrada <ON/OFF> activar entrada epica.')
 	} else if (msg.content.toLowerCase() === 'g!sonidos'){
 		var cadena ='Sonidos:';
 		for(var key in sonidos){
@@ -135,7 +180,7 @@ client.on('message', msg => {
 	} else if(msg.content.toLowerCase().startsWith('g!loquendo')){
 		loquendo(msg,0);
 	} else if(msg.content.toLowerCase().startsWith('g!entrada')){
-		msg.reply('Todavia no lo implemente, perreke.');
+		entrada(msg);
 	}else {
 		for(var key in sonidos){
 			if(msg.content.toLowerCase() === key){
@@ -146,17 +191,15 @@ client.on('message', msg => {
 });
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
-  	let newUserChannel = newMember.voiceChannel
-  	let oldUserChannel = oldMember.voiceChannel
-
-
-  	if(oldUserChannel === undefined && newUserChannel !== undefined) {
-  		setTimeout(() => {
-  			reproducirSonido('data/queondamonito.mp3',false);
-  		}, 1000);
-  	} else if(newUserChannel === undefined){
-
-	   
-
+  	if(newMember.channelID != null && newMember.channelID != oldMember.channelID){
+  		console.log(newMember.channel.members.size);
+  		for(var i = 0; i<arrEntrada.length; i++){
+ 			if(arrEntrada[i][0] == newMember.id && arrEntrada[i][1] == newMember.guild.id){
+  				setTimeout(() => {
+					reproducirSonido(newMember,'data/queondamonito.mp3',false);
+				}, 1000);
+ 			}
+  		}
   	}
 });
+
