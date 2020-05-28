@@ -134,7 +134,9 @@ client.on('message', msg => {
 		msg.reply('Que onda mono?',{files: ['data/profile.png']});
 	} else if(msg.content.startsWith('g!loquendo')){
 		loquendo(msg,0);
-	} else {
+	} else if(msg.content.startsWith('g!entrada')){
+		msg.reply('Todavia no lo implemente, perreke.');
+	}else {
 		for(var key in sonidos){
 			if(msg.content.toLowerCase() === key){
 				reproducirSonido(msg,sonidos[key],false);
