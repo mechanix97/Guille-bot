@@ -132,9 +132,9 @@ client.on('message', msg => {
 		msg.reply(cadena);
 	} else if(msg.content.toLowerCase() === 'g!guillote'){
 		msg.reply('Que onda mono?',{files: ['data/profile.png']});
-	} else if(msg.content.startsWith('g!loquendo')){
+	} else if(msg.content.toLowerCase().startsWith('g!loquendo')){
 		loquendo(msg,0);
-	} else if(msg.content.startsWith('g!entrada')){
+	} else if(msg.content.toLowerCase().startsWith('g!entrada')){
 		msg.reply('Todavia no lo implemente, perreke.');
 	}else {
 		for(var key in sonidos){
