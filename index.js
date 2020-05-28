@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 var txtomp3 = require('text-to-mp3');
 var fs = require('fs');
+const utf8 = require('utf8');
+
 const client = new Discord.Client();
 
 var sonidos = {
@@ -66,6 +68,17 @@ function reproducirSonido(msg,archivo,destruir){
 				}
 			});
 			dispatcher.on('error', console.error);
+			conn.on('disconnect', () =>{
+				setTimeout(() => {  
+					if(destruir){
+						try{	
+					   		fs.unlinkSync(archivo);	
+					   	} catch(err){
+					   		console.log(err);
+					   	}
+					} 
+				}, 100);
+			});
 		}).catch(e => {
         	console.log(e);
         });
@@ -74,16 +87,15 @@ function reproducirSonido(msg,archivo,destruir){
 
 function loquendo(msg, attempt){
 	if(fs.existsSync('temp/temp.mp3')){
-		if(attempt == 15){
+		if(attempt > 15){
 		   	try{
 		   		fs.unlinkSync('temp/temp.mp3');	
 		   	} catch(err){
 		   		console.log(err);
 		   	}
-		} else {
-			attempt++;
-			setTimeout(loquendo,1000,msg,attempt);	
-		}		
+		}
+		attempt=attempt+1;
+		setTimeout(loquendo,500,msg,attempt);		
 	} else {
 		var str = msg.content;
 		var res = str.split(" ");
@@ -92,13 +104,8 @@ function loquendo(msg, attempt){
 			for(var i = 1 ; i<res.length; i++){
 				text = text.concat(res[i],' ');
 			}
-			/*text = text.replace(/[á]/g, 'a');
-			text = text.replace(/[é]/g, 'e');
-			text = text.replace(/[í]/g, 'i');
-			text = text.replace(/[ó]/g, 'o');
-			text = text.replace(/[ú]/g, 'u');*/
-			text = utf8_encode(text);
-			if(text.length >= 200){
+			text = utf8.encode(text);
+			if(text.length >= 203){
 				msg.reply('Te exediste de caracteres, papu.');
 				return;
 			}
@@ -133,7 +140,7 @@ client.on('message', msg => {
 	} else if(msg.content.toLowerCase() === 'g!guillote'){
 		msg.reply('Que onda mono?',{files: ['data/profile.png']});
 	} else if(msg.content.startsWith('g!loquendo')){
-		loquendo(msg);
+		loquendo(msg,0);
 	} else {
 		for(var key in sonidos){
 			if(msg.content.toLowerCase() === key){
