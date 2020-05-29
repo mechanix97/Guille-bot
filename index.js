@@ -180,14 +180,14 @@ function sentaste(msg){
 	 	user = client.users.cache.find(u => u.username === res[1]);
 
 		if(user){
-			url = user.avatarURL();	
+			url = user.displayAvatarURL();
 		} else {
 			user = msg.author;
-			url = msg.author.avatarURL();
+			url = msg.author.displayAvatarURL();
 		}
 	} else {
 		user = msg.author;
-		url = msg.author.avatarURL();
+		url = msg.author.displayAvatarURL();
 	}
 
 
