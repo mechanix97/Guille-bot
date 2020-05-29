@@ -121,13 +121,17 @@ function loquendo(msg, attempt){
 				reproducirSonido(msg,absoluteFilePath,true);
 			}) 
 			.catch(function(err){
-  				msg.reply('Mensaje invalido, monito.');
-			   	try{
-			   		fs.unlinkSync('temp/temp.mp3');	
-			   	} catch(err){
-			   		console.log(err);
-			   	}				   	
-			    return;
+				console.log("Error", err);
+				if(err instanceof TypeError){
+					msg.reply('Mensaje invalido, monito.');
+				} else {
+					msg.reply('Error desconocido, avisale al Mechanix más cercano.');
+			   		try{
+			   			fs.unlinkSync('temp/temp.mp3');	
+			   		} catch(err){
+				   		console.log(err);
+				   	}				   		    	
+				}
 			});
 		} else {
 			msg.reply('Pone un mensaje, bola.');
