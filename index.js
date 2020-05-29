@@ -2,6 +2,9 @@ const Discord = require('discord.js');
 var txtomp3 = require('text-to-mp3');
 var fs = require('fs');
 const utf8 = require('utf8');
+const download = require('image-downloader')
+const sharp = require('sharp');
+
 
 const client = new Discord.Client();
 
@@ -39,6 +42,8 @@ var sonidos = {
 var options = {
   tl: 'es'
 }
+
+sharp.cache({ files : 0 });
 
 var arrEntrada = [];
 
@@ -166,6 +171,70 @@ function entrada(msg){
 	}); 
 }
 
+function sentaste(msg){
+	let url;
+	let user = msg.author;	
+	var str = msg.content;
+	var res = str.split(" ");
+	if(res.length > 1){
+	 	user = client.users.cache.find(u => u.username === res[1]);
+
+		if(user){
+			url = user.avatarURL();	
+		} else {
+			user = msg.author;
+			url = msg.author.avatarURL();
+		}
+	} else {
+		user = msg.author;
+		url = msg.author.avatarURL();
+	}
+
+
+	const options = {
+  		url: url,
+  		dest: 'temp/profile.webp'        
+	}
+ 
+	download.image(options)
+  	.then(({ filename }) => {
+    	const image = sharp('temp/profile.webp');
+		image
+		.metadata()
+		.then(function(metadata) {
+			return image
+			.resize(75,75,4)
+			.webp()
+			.toBuffer();
+		}).then(function(data) {
+		    sharp('data/sentaste.png')
+		    .composite([{ input: data, top: 42, left: 420  }])
+		    .toFile('temp/sentaste.png').then(() =>{
+				if(msg.member.voice.channel){
+					msg.content = "g!loquendo Noooo "+ user.username + ", donde te sentaste?";
+					loquendo(msg,0);	
+				}				
+				msg.channel.send("Noooo "+ user.username + ", donde te sentaste?",{files: ['temp/sentaste.png']})
+				.then(() =>{
+					try{
+			   			fs.unlinkSync('temp/sentaste.png');	
+			   		} catch(err){
+			   			console.log(err);
+			   		}
+			   		try{
+			   			fs.unlinkSync('temp/profile.webp');	
+			   		} catch(err){
+			   			console.log(err);
+			   		}	
+				});
+			});
+		});
+		
+	})
+	.catch((err) => console.error(err))	
+}
+
+
 client.on('message', msg => {
 	if (msg.content.toLowerCase() === 'g!help'){
 		msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo\n\tg!entrada <ON/OFF> activar entrada epica.')
@@ -175,6 +244,8 @@ client.on('message', msg => {
 			cadena = cadena.concat('\n\t',key);
 		}
 		msg.reply(cadena);
+	} else if(msg.content.toLowerCase().startsWith('g!sentaste')){
+		sentaste(msg);
 	} else if(msg.content.toLowerCase() === 'g!guillote'){
 		msg.reply('Que onda mono?',{files: ['data/profile.png']});
 	} else if(msg.content.toLowerCase().startsWith('g!loquendo')){
