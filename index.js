@@ -211,10 +211,10 @@ function sentaste(msg){
 		    .composite([{ input: data, top: 42, left: 420  }])
 		    .toFile('temp/sentaste.png').then(() =>{
 				if(msg.member.voice.channel){
-					msg.content = "g!loquendo Noooo "+ user.username + ", donde te sentaste?";
+					msg.content = "g!loquendo Noooooooooooo "+ user.username + ", donde te sentaste?";
 					loquendo(msg,0);	
 				}				
-				msg.channel.send("Noooo "+ user.username + ", donde te sentaste?",{files: ['temp/sentaste.png']})
+				msg.channel.send("Noooooooooooo "+ user.username + ", donde te sentaste?",{files: ['temp/sentaste.png']})
 				.then(() =>{
 					try{
 			   			fs.unlinkSync('temp/sentaste.png');	
