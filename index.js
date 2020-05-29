@@ -120,11 +120,11 @@ function loquendo(msg, attempt){
 			txtomp3.saveMP3(text, 'temp/temp.mp3').then(function(absoluteFilePath){
 				reproducirSonido(msg,absoluteFilePath,true);
 			}) 
-			.catch(function(err){
-				console.log("Error", err);
+			.catch(function(err){		
 				if(err instanceof TypeError){
 					msg.reply('Mensaje invalido, monito.');
 				} else {
+					console.log("Error", err);
 					msg.reply('Error desconocido, avisale al Mechanix más cercano.');
 			   		try{
 			   			fs.unlinkSync('temp/temp.mp3');	
