@@ -237,7 +237,7 @@ function sentaste(msg){
 
 client.on('message', msg => {
 	if (msg.content.toLowerCase() === 'g!help'){
-		msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo\n\tg!entrada <ON/OFF> activar entrada epica.')
+		msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo\n\tg!entrada <ON/OFF> activar entrada epica.\n\tg!sentaste <USUARIO> para sentar a alguien.')
 	} else if (msg.content.toLowerCase() === 'g!sonidos'){
 		var cadena ='Sonidos:';
 		for(var key in sonidos){
