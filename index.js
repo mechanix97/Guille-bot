@@ -149,10 +149,17 @@ function entrada(msg){
 		}
 	}
 	if(text.toLowerCase() === 'on'){
-		const index = arrEntrada.indexOf([msg.author.id, msg.guild.id]);
+		for(var i = 0; i < arrEntrada.length; i++){
+			if(arrEntrada[i][0] != msg.author.id && arrEntrada[i][1] != msg.guild.id){
+				arrEntrada.push([msg.author.id, msg.guild.id]);
+				return;
+			} 
+		}
+		msg.reply("Ya lo tenes prendido, pavo");
+		/*const index = arrEntrada.indexOf([msg.author.id, msg.guild.id]);
 		if(index == -1){
 			arrEntrada.push([msg.author.id, msg.guild.id]);
-		}		
+		}*/		
 	} else if(text.toLowerCase() === 'off'){
 		const index = arrEntrada.indexOf([msg.author.id, msg.guild.id]);
 		if (index > -1) {
