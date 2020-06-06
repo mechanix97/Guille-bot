@@ -191,7 +191,7 @@ function sentaste(msg){
 	if(res.length > 1){
 		for(var i = 1 ; i<res.length; i++){
 			text = text.concat(res[i]);
-			if(i != ){
+			if(i != res.length){
 				text = text.concat(" ");
 			}
 		}
