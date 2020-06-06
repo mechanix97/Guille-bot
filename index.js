@@ -160,11 +160,6 @@ function entrada(msg){
 		} else {
 			arrEntrada.push([msg.author.id, msg.guild.id]);
 		}
-		
-		/*const index = arrEntrada.indexOf([msg.author.id, msg.guild.id]);
-		if(index == -1){
-			arrEntrada.push([msg.author.id, msg.guild.id]);
-		}*/		
 	} else if(text.toLowerCase() === 'off'){
 		const index = arrEntrada.indexOf([msg.author.id, msg.guild.id]);
 		if (index > -1) {
@@ -191,9 +186,13 @@ function sentaste(msg){
 	let url;
 	let user = msg.author;	
 	var str = msg.content;
+	var text = '';
 	var res = str.split(" ");
 	if(res.length > 1){
-	 	user = client.users.cache.find(u => u.username === res[1]);
+		for(var i = 1 ; i<res.length; i++){
+			text = text.concat(res[i]);
+		}
+	 	user = client.users.cache.find(u => u.username === text);
 
 		if(user){
 			url = user.displayAvatarURL();
