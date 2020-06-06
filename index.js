@@ -39,10 +39,6 @@ var sonidos = {
   'g!onfire':'data/Onfire.mp3'
 };
 
-var options = {
-  tl: 'es'
-}
-
 sharp.cache({ files : 0 });
 
 var arrEntrada = [];
@@ -92,7 +88,7 @@ function reproducirSonido(msg,archivo,destruir){
   	}	
 }
 
-function loquendo(msg, attempt){
+function loquendo(msg, attempt,lenguage){
 	if(fs.existsSync('temp/temp.mp3')){
 		if(attempt > 15){
 		   	try{
@@ -116,7 +112,7 @@ function loquendo(msg, attempt){
 				msg.reply('Te exediste de caracteres, papu.');
 				return;
 			}
-			txtomp3.attributes.tl ="es";
+			txtomp3.attributes.tl =lenguage;
 			txtomp3.saveMP3(text, 'temp/temp.mp3').then(function(absoluteFilePath){
 				reproducirSonido(msg,absoluteFilePath,true);
 			}) 
@@ -124,7 +120,7 @@ function loquendo(msg, attempt){
 				if(err instanceof TypeError){
 					msg.reply('Mensaje invalido, monito.');
 				} else if(err.code === 'ENOENT'){
-					loquendo(msg, attempt);
+					loquendo(msg, attempt, lenguage);
 				}else {
 					console.log("Error", err);
 					msg.reply('Error desconocido, avisale al Mechanix más cercano.');
@@ -232,7 +228,7 @@ function sentaste(msg){
 		    .toFile('temp/sentaste.png').then(() =>{
 				if(msg.member.voice.channel){
 					msg.content = "g!loquendo Noooooooooooo "+ user.username + ", donde te sentaste?";
-					loquendo(msg,0);	
+					loquendo(msg,0,"es");	
 				}				
 				msg.channel.send("Noooooooooooo "+ user.username + ", donde te sentaste?",{files: ['temp/sentaste.png']})
 				.then(() =>{
@@ -269,7 +265,9 @@ client.on('message', msg => {
 	} else if(msg.content.toLowerCase() === 'g!guillote'){
 		msg.reply('Que onda mono?',{files: ['data/profile.png']});
 	} else if(msg.content.toLowerCase().startsWith('g!loquendo')){
-		loquendo(msg,0);
+		loquendo(msg,0,"es");
+	} else if(msg.content.toLowerCase().startsWith('g!loquendobr')){
+		loquendo(msg,0,"pt");		
 	} else if(msg.content.toLowerCase().startsWith('g!entrada')){
 		entrada(msg);
 	}else {
