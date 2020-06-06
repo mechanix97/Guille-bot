@@ -123,7 +123,9 @@ function loquendo(msg, attempt){
 			.catch(function(err){		
 				if(err instanceof TypeError){
 					msg.reply('Mensaje invalido, monito.');
-				} else {
+				} else if(err.code === 'ENOENT'){
+					loquendo(msg, attempt);
+				}else {
 					console.log("Error", err);
 					msg.reply('Error desconocido, avisale al Mechanix más cercano.');
 			   		try{
