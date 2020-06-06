@@ -191,6 +191,9 @@ function sentaste(msg){
 	if(res.length > 1){
 		for(var i = 1 ; i<res.length; i++){
 			text = text.concat(res[i]);
+			if(i != ){
+				text = text.concat(" ");
+			}
 		}
 	 	user = client.users.cache.find(u => u.username === text);
 
