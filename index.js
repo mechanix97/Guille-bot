@@ -112,7 +112,7 @@ function loquendo(msg, attempt,lenguage){
 				msg.reply('Te exediste de caracteres, papu.');
 				return;
 			}
-			txtomp3.attributes.tl =lenguage;
+			txtomp3.attributes.tl = lenguage;
 			txtomp3.saveMP3(text, 'temp/temp.mp3').then(function(absoluteFilePath){
 				reproducirSonido(msg,absoluteFilePath,true);
 			}) 
@@ -264,11 +264,11 @@ client.on('message', msg => {
 		sentaste(msg);
 	} else if(msg.content.toLowerCase() === 'g!guillote'){
 		msg.reply('Que onda mono?',{files: ['data/profile.png']});
-	} else if(msg.content.toLowerCase().startsWith('g!loquendo')){
+	} else if(msg.content.toLowerCase().startsWith('g!loquendo ')){
 		loquendo(msg,0,"es");
-	} else if(msg.content.toLowerCase().startsWith('g!loquendobr')){
+	} else if(msg.content.toLowerCase().startsWith('g!loquendobr ')){
 		loquendo(msg,0,"pt");		
-	} else if(msg.content.toLowerCase().startsWith('g!entrada')){
+	} else if(msg.content.toLowerCase().startsWith('g!entrada ')){
 		entrada(msg);
 	}else {
 		for(var key in sonidos){
