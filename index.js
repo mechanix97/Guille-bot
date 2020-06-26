@@ -5,38 +5,40 @@ const utf8 = require('utf8');
 const download = require('image-downloader')
 const sharp = require('sharp');
 
+const soundPath = 'data/sounds/';
+const imagePah = 'data/images/';
 
 const client = new Discord.Client();
 
 var sonidos = {
-  'g!soseluno':'data/soseluno.mp3',
-  'g!gracias':'data/gracias.mp3',
-  'g!monito':'data/queondamonito.mp3',
-  'g!mono':'data/queondamonito.mp3',
-  'g!queonda':'data/queondamonito.mp3',
-  'g!picanchi':'data/picanchi.mp3',
-  'g!verga':'data/verga.mp3',
-  'g!team':'data/team.mp3',
-  'g!stress':'data/stress.mp3',
-  'g!poronga':'data/poronga.mp3',
-  'g!vicio':'data/vicio.mp3',
-  'g!papo':'data/papo.mp3',
-  'g!rapido':'data/rapido.mp3',
-  'g!walter':'data/walter.mp3',
-  'g!gil':'data/gil.mp3',
-  'g!sorete':'data/sorete.mp3',
-  'g!enserio':'data/enserio.mp3',
-  'g!concha':'data/concha.mp3',
-  'g!definicion':'data/Elchabonesladefdepelotudo.mp3',
-  'g!boludo':'data/Esboludo.mp3',
-  'g!pajero':'data/Esmediopajero.mp3',
-  'g!malardo':'data/Malardo.mp3',
-  'g!estudiar':'data/Pajaestudiar.mp3',
-  'g!palos':'data/Palos.mp3',
-  'g!perro':'data/Queondaperro.mp3',
-  'g!facil':'data/Refacilhdp.mp3',
-  'g!tremenda':'data/Tremendaverga.mp3',
-  'g!onfire':'data/Onfire.mp3'
+  'g!soseluno':'soseluno.mp3',
+  'g!gracias':'gracias.mp3',
+  'g!monito':'queondamonito.mp3',
+  'g!mono':'queondamonito.mp3',
+  'g!queonda':'queondamonito.mp3',
+  'g!picanchi':'picanchi.mp3',
+  'g!verga':'verga.mp3',
+  'g!team':'team.mp3',
+  'g!stress':'stress.mp3',
+  'g!poronga':'poronga.mp3',
+  'g!vicio':'vicio.mp3',
+  'g!papo':'papo.mp3',
+  'g!rapido':'rapido.mp3',
+  'g!walter':'walter.mp3',
+  'g!gil':'gil.mp3',
+  'g!sorete':'sorete.mp3',
+  'g!enserio':'enserio.mp3',
+  'g!concha':'concha.mp3',
+  'g!definicion':'Elchabonesladefdepelotudo.mp3',
+  'g!boludo':'Esboludo.mp3',
+  'g!pajero':'Esmediopajero.mp3',
+  'g!malardo':'Malardo.mp3',
+  'g!estudiar':'Pajaestudiar.mp3',
+  'g!palos':'Palos.mp3',
+  'g!perro':'Queondaperro.mp3',
+  'g!facil':'Refacilhdp.mp3',
+  'g!tremenda':'Tremendaverga.mp3',
+  'g!onfire':'Onfire.mp3'
 };
 
 sharp.cache({ files : 0 });
@@ -45,10 +47,18 @@ var arrEntrada = [];
 
 client.on('ready', () => {
  	console.log(`Logged in as ${client.user.tag}!`);
- 	fs.readFile('bin/entry.json', (err, data) => {
-    	if (err) throw err;
-    	arrEntrada = JSON.parse(data);
-	});	
+ 	if (fs.existsSync('bin/entry.json')){
+ 		fs.readFile('bin/entry.json', (err, data) => {
+ 			if(err) throw err;
+ 			arrEntrada = JSON.parse(data);
+		});	
+ 	} else {
+ 		fs.openSync('bin/entry.json', 'w');
+		fs.writeFile('bin/entry.json', JSON.stringify([]),function(err) {
+			if(err) throw err;
+		});
+		arrEntrada = [];
+ 	}
 });
 
 client.login('NzEzNTI0NTE5ODMwMDI4MzY4.XshdJg.5t2rry7WeOsgzPYDyX_wLDxxXLE');
@@ -223,7 +233,7 @@ function sentaste(msg){
 			.webp()
 			.toBuffer();
 		}).then(function(data) {
-		    sharp('data/sentaste.png')
+		    sharp(imagePath+'sentaste.png')
 		    .composite([{ input: data, top: 42, left: 420  }])
 		    .toFile('temp/sentaste.png').then(() =>{
 				if(msg.member.voice.channel){
@@ -263,7 +273,7 @@ client.on('message', msg => {
 	} else if(msg.content.toLowerCase().startsWith('g!sentaste')){
 		sentaste(msg);
 	} else if(msg.content.toLowerCase() === 'g!guillote'){
-		msg.reply('Que onda mono?',{files: ['data/profile.png']});
+		msg.reply('Que onda mono?',{files: [imagePath+'profile.png']});
 	} else if(msg.content.toLowerCase().startsWith('g!loquendo ')){
 		loquendo(msg,0,"es");
 	} else if(msg.content.toLowerCase().startsWith('g!loquendobr ')){
@@ -273,7 +283,7 @@ client.on('message', msg => {
 	}else {
 		for(var key in sonidos){
 			if(msg.content.toLowerCase() === key){
-				reproducirSonido(msg,sonidos[key],false);
+				reproducirSonido(msg,soundPath+sonidos[key],false);
 			}
 		}
 	}
@@ -284,7 +294,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
   		for(var i = 0; i<arrEntrada.length; i++){
  			if(arrEntrada[i][0] == newMember.id && arrEntrada[i][1] == newMember.guild.id){
   				setTimeout(() => {
-					reproducirSonido(newMember,'data/queondamonito.mp3',false);
+					reproducirSonido(newMember,soundPath+'queondamonito.mp3',false);
 				}, 1000);
  			}
   		}
