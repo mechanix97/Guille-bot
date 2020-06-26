@@ -6,7 +6,7 @@ const download = require('image-downloader')
 const sharp = require('sharp');
 
 const soundPath = 'data/sounds/';
-const imagePah = 'data/images/';
+const imagePath = 'data/images/';
 
 const client = new Discord.Client();
 
