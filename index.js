@@ -148,6 +148,8 @@ function loquendo(msg, attempt,lenguage){
 }
 
 function entrada(msg){
+	msg.reply("Sorry bro, esta en mantenimiento");
+	return;
 	var str = msg.content;
 	var res = str.split(" ");
 	var text = '';
