@@ -262,6 +262,11 @@ function sentaste(msg){
 	.catch((err) => console.error(err))	
 }
 
+function dato(msg){
+	const n = Math.round(Math.random() * 8)-1;
+	reproducirSonido(msg,soundPath+"dato/"+n+".mp3",false);
+}
+
 
 client.on('message', msg => {
 	if (msg.content.toLowerCase() === 'g!help'){
@@ -274,7 +279,10 @@ client.on('message', msg => {
 		msg.reply(cadena);
 	} else if(msg.content.toLowerCase().startsWith('g!sentaste')){
 		sentaste(msg);
-	} else if(msg.content.toLowerCase() === 'g!guillote'){
+	} else if(msg.content.toLowerCase() === 'g!dato'){
+		dato(msg);
+	}
+	else if(msg.content.toLowerCase() === 'g!guillote'){
 		msg.reply('Que onda mono?',{files: [imagePath+'profile.png']});
 	} else if(msg.content.toLowerCase().startsWith('g!loquendo ')){
 		loquendo(msg,0,"es");
