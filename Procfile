@@ -1,1 +1,1 @@
-worker: node index.js
+worker: nodemon -inspect index.js
