@@ -1,9 +1,11 @@
-const Discord = require('discord.js');
-var txtomp3 = require('text-to-mp3');
-var fs = require('fs');
-const utf8 = require('utf8');
-const download = require('image-downloader')
-const sharp = require('sharp');
+import { VoiceConnection } from './modules/voice_connection.js';
+
+import Discord from 'discord.js';
+import txtomp3 from 'text-to-mp3';
+import fs from 'fs';
+import utf8 from 'utf8';
+import download from 'image-downloader';
+import sharp from 'sharp';
 
 const soundPath = 'data/sounds/';
 const imagePath = 'data/images/';
@@ -67,21 +69,10 @@ function reproducirSonido(msg,archivo,destruir){
 	if(msg == null){
 		return;
 	}
-	if (client.voice.connections.size){
-    	setTimeout(reproducirSonido,1000,msg,archivo,destruir);
-  	} else {
-		const channel = msg.member.voice.channel;
-		if (!channel){
-			return msg.channel.send('No estas en ningún canal de voz, pavo.');	
-		}
-		channel.join().then(conn => {
-		const dispatcher = conn.play(archivo);
-			dispatcher.on('finish', () => {
-				conn.disconnect();
-				dispatcher.destroy();
-			});
-			dispatcher.on('error', console.error);
-			conn.on('disconnect', () =>{
+	var voiceConnection = new VoiceConnection(msg);
+	voiceConnection.connect().then(() => {
+		voiceConnection.playSound(archivo, destruir).then(() => {
+			voiceConnection.disconnect().then(() => {
 				setTimeout(() => {  
 					if(destruir){
 						try{	
@@ -92,10 +83,8 @@ function reproducirSonido(msg,archivo,destruir){
 					} 
 				}, 100);
 			});
-		}).catch(e => {
-        	console.log(e);
-        });
-  	}	
+		}); 
+	});
 }
 
 function loquendo(msg, attempt,lenguage){
@@ -148,6 +137,7 @@ function loquendo(msg, attempt,lenguage){
 }
 
 function entrada(msg){
+	msg.member.presence.activities.forEach(console.log);
 	msg.reply("Sorry bro, esta en mantenimiento");
 	return;
 	var str = msg.content;

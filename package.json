@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module", 
   "dependencies": {
     "canvas": "^2.6.1",
     "discord.js": "^12.2.0",
@@ -17,7 +18,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node index.js"
+    "start": "node --experimental-modules index.js"
   },
   "keywords": [],
   "author": "",

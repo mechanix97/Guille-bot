@@ -1,1 +1,1 @@
-nodemon --inspect index.js
+nodemon --inspect --experimental-modules index.js
