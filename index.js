@@ -6,7 +6,7 @@ import readline from 'readline';
 
 const client = new Discord.Client();
 let command = new Command();
-
+/*
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -14,11 +14,11 @@ const rl = readline.createInterface({
 
 rl.stdoutMuted = true;
 
-var encrypted = 'U2FsdGVkX19x/uMboX8ADZQLoRSP1dvKIY36FlGruFPP0ixaEVT3HUtMHBxPd2B69cIorl/bD4EKb9D4MZZ101g/O17Tj3aYHlQIVmiblC0=';
+var encrypted =  'U2FsdGVkX19x/uMboX8ADZQLoRSP1dvKIY36FlGruFPP0ixaEVT3HUtMHBxPd2B69cIorl/bD4EKb9D4MZZ101g/O17Tj3aYHlQIVmiblC0=';
 
 rl.question('Enter Key\n', (key) => {
    	rl.stdoutMuted = false;
-   	console.log("");
+   	console.log();
    	var decrypted = CryptoJS.AES.decrypt(encrypted, key);
    	client.login(decrypted.toString(CryptoJS.enc.Utf8));
   	rl.close();
@@ -30,6 +30,13 @@ rl._writeToOutput = function _writeToOutput(stringToWrite) {
   else
     rl.output.write(stringToWrite);
 };
+
+*/
+
+
+client.login("NzEzNTI0NTE5ODMwMDI4MzY4.XshXfg.Hjnuuf9e0xRFegSgK-EJDicxAw0");
+
+
 
 client.on('message', msg => {
 	command.exec(msg, client);
