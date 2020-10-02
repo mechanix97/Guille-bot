@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module", 
+  "type": "module",
   "dependencies": {
     "canvas": "^2.6.1",
+    "crypto-js": "^4.0.0",
     "discord.js": "^12.2.0",
     "ffmpeg": "^0.0.4",
     "image-downloader": "^4.0.1",
