@@ -9,6 +9,15 @@ import utf8 from 'utf8';
 import download from 'image-downloader';
 import sharp from 'sharp';
 
+import https from 'https';
+
+const options = {
+  hostname: 'api-dolar-argentina.herokuapp.com',
+  port: 443,
+  path: '/api/dolarblue',
+  method: 'GET'
+}
+
 sharp.cache({ files : 0 });
 
 var arrEntrada = [];
@@ -240,9 +249,22 @@ class Command {
 		
 	}
 
+	dolar(msg){
+		if(msg.member.voice.channel){
+			httpRequest(options).then(cotizacion => {
+    			msg.content = "g!loquendo La cotización del dolar hoy es de "+ cotizacion.compra + " pesos para la compra y"+ cotizacion.venta +" pesos para la venta.";
+				this.loquendo(msg, "es");
+			});
+
+
+		} else {
+			msg.reply("Metete en un canal de voz, crack.");
+		}
+	}
+
 	exec(msg, client){
 		if (msg.content.toLowerCase() === 'g!help'){
-			msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo\n\tg!entrada <ON/OFF> activar entrada epica.\n\tg!sentaste <USUARIO> para sentar a alguien.')
+			msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo\n\tg!entrada <ON/OFF> activar entrada epica.\n\tg!sentaste <USUARIO> para sentar a alguien.\n\tg!dolar para saber la cotización del dolar.')
 		} else if (msg.content.toLowerCase() === 'g!sonidos'){
 			this.displaySounds();
 		} else if(msg.content.toLowerCase().startsWith('g!sentaste')){
@@ -258,7 +280,10 @@ class Command {
 			this.loquendo(msg,"pt");		
 		} else if(msg.content.toLowerCase().startsWith('g!entrada ')){
 			this.entrada(msg);
-		}else {
+		}else if(msg.content.toLowerCase() === 'g!dolar'){
+			this.dolar(msg);
+		}
+		else {
 			for(var key in sonidos){
 				if(msg.content.toLowerCase() === key){
 					this.playSound(msg,soundPath+sonidos[key],false);
@@ -276,4 +301,40 @@ class Command {
   			}
   		}
   	}
+}
+
+
+function httpRequest(params, postData) {
+    return new Promise(function(resolve, reject) {
+        var req = https.request(params, function(res) {
+            // reject on bad status
+            if (res.statusCode < 200 || res.statusCode >= 300) {
+                return reject(new Error('statusCode=' + res.statusCode));
+            }
+            // cumulate data
+            var body = [];
+            res.on('data', function(chunk) {
+                body.push(chunk);
+            });
+            // resolve on end
+            res.on('end', function() {
+                try {
+                    body = JSON.parse(Buffer.concat(body).toString());
+                } catch(e) {
+                    reject(e);
+                }
+                resolve(body);
+            });
+        });
+        // reject on request error
+        req.on('error', function(err) {
+            // This is not a "Second reject", just a different sort of failure
+            reject(err);
+        });
+        if (postData) {
+            req.write(postData);
+        }
+        // IMPORTANT
+        req.end();
+    });
 }

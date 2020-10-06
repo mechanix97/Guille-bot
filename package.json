@@ -9,6 +9,7 @@
     "crypto-js": "^4.0.0",
     "discord.js": "^12.2.0",
     "ffmpeg": "^0.0.4",
+    "https": "^1.0.0",
     "image-downloader": "^4.0.1",
     "merge-images": "^2.0.0",
     "node-opus": "^0.3.3",
