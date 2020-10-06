@@ -250,16 +250,14 @@ class Command {
 	}
 
 	dolar(msg){
-		if(msg.member.voice.channel){
-			httpRequest(options).then(cotizacion => {
+		httpRequest(options).then(cotizacion => {
+			if(msg.member.voice.channel){
     			msg.content = "g!loquendo La cotización del dolar hoy es de "+ cotizacion.compra + " pesos para la compra y"+ cotizacion.venta +" pesos para la venta.";
 				this.loquendo(msg, "es");
-			});
-
-
-		} else {
-			msg.reply("Metete en un canal de voz, crack.");
-		}
+			}
+			msg.reply("Dolar hoy:\n\tCompra: $"+ cotizacion.compra +"\n\tVenta: $"+ cotizacion.venta);
+			
+		});		
 	}
 
 	exec(msg, client){
