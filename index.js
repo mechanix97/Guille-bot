@@ -6,8 +6,6 @@ import fs from 'fs';
 const client = new Discord.Client();
 let command = new Command();
 
-//client.login("NzEzNTI0NTE5ODMwMDI4MzY4.XshXfg.Hjnuuf9e0xRFegSgK-EJDicxAw0");
-
 fs.readFile('./bin/config.json','utf-8',(err,jsonString)=>{
     const config = JSON.parse(jsonString);
     client.login(config.token);
