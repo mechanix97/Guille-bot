@@ -4,4 +4,4 @@ deploy.ps1
 ffmpeg.exe
 temp/temp.mp3
 bin/entry.json
-bin/config.json
+#bin/config.json
