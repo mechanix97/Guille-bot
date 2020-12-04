@@ -121,7 +121,6 @@ class Command {
 			url = msg.author.displayAvatarURL();
 		}
 
-		console.log(url);
 
 		const options = {
 	  		url: url,
