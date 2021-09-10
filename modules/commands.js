@@ -60,6 +60,11 @@ class Command {
   	constructor() {
   	}
 
+	  
+	randomusic(msg){
+		msg.reply("-p cumbia de goku")
+	}
+
 	playSound(msg, archivo, destruir){
 		if(msg == null){
 			return;
@@ -280,6 +285,8 @@ class Command {
 			this.entrada(msg);
 		}else if(msg.content.toLowerCase() === 'g!dolar'){
 			this.dolar(msg);
+		}else if(msg.content.toLowerCase() === 'g!randomusic'){
+			this.randomusic(msg);
 		}
 		else {
 			for(var key in sonidos){
