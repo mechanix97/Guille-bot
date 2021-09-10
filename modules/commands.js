@@ -264,7 +264,7 @@ class Command {
 		if (msg.content.toLowerCase() === 'g!help'){
 			msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo\n\tg!entrada <ON/OFF> activar entrada epica.\n\tg!sentaste <USUARIO> para sentar a alguien.\n\tg!dolar para saber la cotización del dolar.')
 		} else if (msg.content.toLowerCase() === 'g!sonidos'){
-			this.displaySounds();
+			this.displaySounds(msg);
 		} else if(msg.content.toLowerCase().startsWith('g!sentaste')){
 			this.sentaste(msg, client);
 		} else if(msg.content.toLowerCase() === 'g!dato'){
