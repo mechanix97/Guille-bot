@@ -130,7 +130,7 @@ class Command {
 			var champImageURL = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/"+ champName+ "_0.jpg"
 			message.channel.send("Juga " + selectedChamp ,{files: [champImageURL]})
 			if(msg.member.voice.channel){
-    			msg.content = "g!loquendo Jugate una partidita con " + champName + ", Rey";
+    			msg.content = "g!loquendo Jugate una partidita con " + selectedChamp + ", Rey";
 				this.loquendo(msg, "es");
 			}
         })
