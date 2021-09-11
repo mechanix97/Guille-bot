@@ -90,9 +90,6 @@ class Command {
   	}
 
 	randomChamp(msg){
-		// var jg = getChampionsByPosition('Topp');
-		// const n = Math.floor(Math.random() * jg.length);
-		// msg.channel.send(jg[n].name)
 		msg.reply("Que linea queres jugar, rey? [top, jg, mid, adc, supp, rand]")	
         const collector = new Discord.MessageCollector(msg.channel, m => m.author.id === msg.author.id, { time: 10000 });
         collector.once('collect', message => {

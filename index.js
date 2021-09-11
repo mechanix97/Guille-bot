@@ -11,12 +11,6 @@ fs.readFile('./bin/config.json','utf-8',(err,jsonString)=>{
     client.login(config.token);
 });
 
-
-fs.readFile('./bin/config.json','utf-8',(err,jsonString)=>{
-    const config = JSON.parse(jsonString);
-    client.login(config.token);
-});
-
 client.on('message', msg => {
 	command.exec(msg, client);
 });
