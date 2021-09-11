@@ -124,6 +124,9 @@ class Command {
 
 			var champName = selectedChamp.split(' ')[0];
 			champName = champName.replace('\'','')
+			if(champName == 'Aurelion'){
+				champName = 'AurelionSol'
+			}
 			var champImageURL = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/"+ champName+ "_0.jpg"
 			message.channel.send("Juga " + selectedChamp ,{files: [champImageURL]})
 			if(msg.member.voice.channel){
