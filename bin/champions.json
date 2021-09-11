@@ -1,0 +1,599 @@
+{
+    "champions": [
+        {
+          "_id": "5a934e000102030405000000",
+          "name": "Aatrox",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000001",
+          "name": "Ahri",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000002",
+          "name": "Akali",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000002",
+          "name": "Akali",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000003",
+          "name": "Akshan",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000003",
+          "name": "Akshan",
+          "position": "AD Carry"
+        },
+        {
+          "_id": "5a934e000102030405000004",
+          "name": "Alistar",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e000102030405000005",
+          "name": "Amumu",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000005",
+          "name": "Amumu",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e000102030405000006",
+          "name": "Anivia",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000007",
+          "name": "Annie",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000008",
+          "name": "Aphelios",
+          "position": "AD Carry"
+        },
+        {
+          "_id": "5a934e000102030405000009",
+          "name": "Ashe",
+          "position": "AD Carry"
+        },
+        {
+          "_id": "5a934e00010203040500000a",
+          "name": "Aurelion Sol",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e00010203040500000b",
+          "name": "Azir",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e00010203040500000c",
+          "name": "Bardo",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e00010203040500000d",
+          "name": "Blitzcrank",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e00010203040500000e",
+          "name": "Brand",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e00010203040500000f",
+          "name": "Braum",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e000102030405000010",
+          "name": "Caitlyn",
+          "position": "AD Carry"
+        },
+        {
+          "_id": "5a934e000102030405000011",
+          "name": "Camille",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000012",
+          "name": "Cassiopeia",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000013",
+          "name": "Cho'gath",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000014",
+          "name": "Corki",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000015",
+          "name": "Darius",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000016",
+          "name": "Diana",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000016",
+          "name": "Diana",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000017",
+          "name": "Dr. Mundo",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000018",
+          "name": "Draven",
+          "position": "AD Carry"
+        },
+        {
+          "_id": "5a934e000102030405000019",
+          "name": "Ekko",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000019",
+          "name": "Ekko",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e00010203040500001a",
+          "name": "Elise",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e00010203040500001b",
+          "name": "Evelynn",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e00010203040500001c",
+          "name": "Ezreal",
+          "position": "AD Carry"
+        },
+        {
+          "_id": "5a934e00010203040500001d",
+          "name": "Fiddlesticks",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e00010203040500001e",
+          "name": "Fiora",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e00010203040500001f",
+          "name": "Fizz",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000020",
+          "name": "Galio",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000020",
+          "name": "Galio",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e000102030405000021",
+          "name": "Gangplank",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000021",
+          "name": "Gangplank",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000022",
+          "name": "Garen",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000023",
+          "name": "Gnar",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000024",
+          "name": "Gragas",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000025",
+          "name": "Graves",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000025",
+          "name": "Graves",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000026",
+          "name": "Gwen",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000027",
+          "name": "Hecarim",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000028",
+          "name": "Heimerdinger",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000028",
+          "name": "Heimerdinger",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000029",
+          "name": "Illaoi",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e00010203040500002a",
+          "name": "Irelia",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e00010203040500002a",
+          "name": "Irelia",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e00010203040500002b",
+          "name": "Ivern",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e00010203040500002c",
+          "name": "Janna",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e00010203040500002d",
+          "name": "Jarvan IV",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e00010203040500002e",
+          "name": "Jax",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e00010203040500002f",
+          "name": "Jayce",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000030",
+          "name": "Jhin",
+          "position": "AD Carry"
+        },
+        {
+          "_id": "5a934e000102030405000031",
+          "name": "Jinx",
+          "position": "AD Carry"
+        },
+        {
+          "_id": "5a934e000102030405000032",
+          "name": "Kai'sa",
+          "position": "AD Carry"
+        },
+        {
+          "_id": "5a934e000102030405000033",
+          "name": "Kalista",
+          "position": "AD Carry"
+        },
+        {
+          "_id": "5a934e000102030405000034",
+          "name": "Karma",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e000102030405000035",
+          "name": "Karthus",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000036",
+          "name": "Kassadin",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000037",
+          "name": "Katarina",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000038",
+          "name": "Kayle",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000038",
+          "name": "Kayle",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000039",
+          "name": "Kayn",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e00010203040500003a",
+          "name": "Kennen",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e00010203040500003b",
+          "name": "Kha'Zix",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e00010203040500003c",
+          "name": "Kindred",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e00010203040500003d",
+          "name": "Kled",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e00010203040500003e",
+          "name": "Kog'Maw",
+          "position": "AD Carry"
+        },
+        {
+          "_id": "5a934e00010203040500003f",
+          "name": "LeBlanc",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000040",
+          "name": "Lee Sin",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000041",
+          "name": "Leona",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e000102030405000042",
+          "name": "Lillia",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000042",
+          "name": "Lillia",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000043",
+          "name": "Lissandra",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000044",
+          "name": "Lucian",
+          "position": "AD Carry"
+        },
+        {
+          "_id": "5a934e000102030405000045",
+          "name": "Lulu",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e000102030405000046",
+          "name": "Lux",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e000102030405000046",
+          "name": "Lux",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000047",
+          "name": "Maestro Yi",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000048",
+          "name": "Malphite",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000049",
+          "name": "Malzahar",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e00010203040500004a",
+          "name": "Maokai",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e00010203040500004a",
+          "name": "Maokai",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e00010203040500004b",
+          "name": "Miss Fortune",
+          "position": "AD Carry"
+        },
+        {
+          "_id": "5a934e00010203040500004c",
+          "name": "Mordekaiser",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e00010203040500004d",
+          "name": "Morgana",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e00010203040500004e",
+          "name": "Nami",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e00010203040500004f",
+          "name": "Nasus",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000050",
+          "name": "Nautilus",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e000102030405000051",
+          "name": "Neeko",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000051",
+          "name": "Neeko",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e000102030405000052",
+          "name": "Nidalee",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000053",
+          "name": "Nocturne",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000054",
+          "name": "Nunu y Willump",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000055",
+          "name": "Olaf",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000056",
+          "name": "Orianna",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000057",
+          "name": "Ornn",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000058",
+          "name": "Pantheon",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e000102030405000058",
+          "name": "Pantheon",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e000102030405000059",
+          "name": "Poppy",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000059",
+          "name": "Poppy",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e00010203040500005a",
+          "name": "Pyke",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e00010203040500005b",
+          "name": "Qiyana",
+          "position": "Mid"
+        },
+        {
+          "_id": "5a934e00010203040500005b",
+          "name": "Qiyana",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e00010203040500005c",
+          "name": "Quinn",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e00010203040500005d",
+          "name": "Rakan",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e00010203040500005e",
+          "name": "Rammus",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e00010203040500005f",
+          "name": "Rek'Sai",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000060",
+          "name": "Rell",
+          "position": "Support"
+        },
+        {
+          "_id": "5a934e000102030405000061",
+          "name": "Renekton",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000062",
+          "name": "Rengar",
+          "position": "Jungler"
+        },
+        {
+          "_id": "5a934e000102030405000062",
+          "name": "Rengar",
+          "position": "Top"
+        },
+        {
+          "_id": "5a934e000102030405000063",
+          "name": "Riven",
+          "position": "Top"
+        }
+      ]
+}

@@ -11,12 +11,21 @@ import sharp from 'sharp';
 
 import https from 'https';
 
-const options = {
+const optionsDolar = {
   hostname: 'api-dolar-argentina.herokuapp.com',
   port: 443,
   path: '/api/dolarblue',
   method: 'GET'
 }
+
+const optionsBTC = {
+	hostname: 'blockchain.info',
+	port: 443,
+	path: '/ticker',
+	method: 'GET'
+}
+  
+
 
 sharp.cache({ files : 0 });
 
@@ -24,6 +33,16 @@ var arrEntrada = [];
 
 const soundPath = 'data/sounds/';
 const imagePath = 'data/images/';
+
+
+var playlists = [
+	'https://open.spotify.com/playlist/37i9dQZEVXbMMy2roB9myp',
+	'https://open.spotify.com/playlist/37i9dQZEVXbMDoHDwVN2tF',
+	'https://open.spotify.com/playlist/37i9dQZEVXbLRQDuF5jeBp',
+	'https://open.spotify.com/playlist/4rsgFY9d5d47PmG1kvpV8h?si=3zg-TRqyT06azGtWfIZcKw',
+	'https://open.spotify.com/playlist/1Ux2mz0NmWjsejNozSbwb2?si=Pcq7kCmaT26fzoLUprPW5w',
+	'https://open.spotify.com/playlist/0XstUwsW0Le0oHUGpuvN4J?si=fnZ9iuNXSG-NqAQefeYAeQ'
+]
 
 var sonidos = {
   'g!soseluno':'soseluno.mp3',
@@ -56,13 +75,70 @@ var sonidos = {
   'g!onfire':'Onfire.mp3'
 };
 
+const champions = JSON.parse(fs.readFileSync('./bin/champions.json','utf-8')).champions;
+
+function getChampionsByPosition(pos) {
+  return champions.filter(
+    function(champions) {
+      return champions.position == pos
+    }
+  );
+}
+
 class Command {
   	constructor() {
   	}
 
+	randomChamp(msg){
+		// var jg = getChampionsByPosition('Topp');
+		// const n = Math.floor(Math.random() * jg.length);
+		// msg.channel.send(jg[n].name)
+		msg.reply("Que linea queres jugar, rey? [top, jg, mid, adc, supp, rand]")	
+        const collector = new Discord.MessageCollector(msg.channel, m => m.author.id === msg.author.id, { time: 10000 });
+        collector.once('collect', message => {
+			var selectedChamp
+            if(message.content.toLowerCase() == 'top'){
+				var champs = getChampionsByPosition('Top');
+				const n = Math.floor(Math.random() * champs.length);
+				selectedChamp = champs[n].name
+			} else if(message.content.toLowerCase() == 'jg'){
+				var champs = getChampionsByPosition('Jungler');
+				const n = Math.floor(Math.random() * champs.length);
+				selectedChamp = champs[n].name
+			} else if (message.content.toLowerCase() == 'mid'){
+				var champs = getChampionsByPosition('Mid');
+				const n = Math.floor(Math.random() * champs.length);
+				selectedChamp = champs[n].name
+			} else if(message.content.toLowerCase() == 'adc'){
+				var champs = getChampionsByPosition('AD Carry');
+				const n = Math.floor(Math.random() * champs.length);
+				selectedChamp = champs[n].name
+			} else if (message.content.toLowerCase() == 'supp'){
+				var champs = getChampionsByPosition('Support');
+				const n = Math.floor(Math.random() * champs.length);
+				selectedChamp = champs[n].name
+			} else if (message.content.toLowerCase() == 'rand'){
+				const n = Math.floor(Math.random() * champions.length);
+				selectedChamp = champions[n].name
+			} else {
+				message.channel.send("Te equivocaste de linea crack")
+				return;
+			}
+
+			var champName = selectedChamp.split(' ')[0];
+			champName = champName.replace('\'','')
+			var champImageURL = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/"+ champName+ "_0.jpg"
+			message.channel.send("Juga " + selectedChamp ,{files: [champImageURL]})
+			if(msg.member.voice.channel){
+    			msg.content = "g!loquendo Jugate una partidita con " + champName + ", Rey";
+				this.loquendo(msg, "es");
+			}
+        })
+	}
 	  
 	randomusic(msg){
-		msg.reply("-p cumbia de goku")
+		const n = Math.round(Math.random() * playlists.length)-1;
+		msg.channel.send("!p "+playlists[n])
 	}
 
 	playSound(msg, archivo, destruir){
@@ -84,6 +160,8 @@ class Command {
 					}, 100);
 				});
 			}); 
+		}).catch(() =>{
+			msg.reply("Metete en un canal papá frita.")
 		});
 	}
 
@@ -241,28 +319,34 @@ class Command {
 				}else {
 					console.log("Error", err);
 					msg.reply('Error desconocido, avisale al Mechanix más cercano.');
-			   		//try{
-			   		//	fs.unlinkSync('temp/temp.mp3');	
-			   		//} catch(err){
-				   	//	console.log(err);
-				   	//}				   		    	
 				}
 			});
 		} else {
 			msg.reply('Pone un mensaje, bola.');
 		}
-		
 	}
 
 	dolar(msg){
-		httpRequest(options).then(cotizacion => {
+		httpRequest(optionsDolar).then(cotizacion => {
 			if(msg.member.voice.channel){
-    			msg.content = "g!loquendo La cotización del dolar hoy es de "+ cotizacion.compra + " pesos para la compra y"+ cotizacion.venta +" pesos para la venta.";
+    			msg.content = "g!loquendo La cotizacion del dolar es de "+ cotizacion.compra + " pesos para la compra y"+ cotizacion.venta +" pesos para la venta.";
 				this.loquendo(msg, "es");
 			}
-			msg.reply("Dolar hoy:\n\tCompra: $"+ cotizacion.compra +"\n\tVenta: $"+ cotizacion.venta);
+			msg.reply("Dolar:\n\tCompra: $"+ cotizacion.compra +"\n\tVenta: $"+ cotizacion.venta);
 			
 		});		
+	}
+
+	
+	btc(msg){
+		httpRequest(optionsBTC).then(cotizacion => {			
+			if(msg.member.voice.channel){
+    			msg.content = "g!loquendo La cotizacion del Bitcoin es de "+ Math.floor(cotizacion.USD.last/1000) +"mil"+ Math.floor(cotizacion.USD.last%1000) + " dolares";
+				this.loquendo(msg, "es");
+			}
+			msg.reply("Bitcoin: u$d " +  Math.floor(cotizacion.USD.last));
+			
+		})
 	}
 
 	exec(msg, client){
@@ -285,8 +369,13 @@ class Command {
 			this.entrada(msg);
 		}else if(msg.content.toLowerCase() === 'g!dolar'){
 			this.dolar(msg);
-		}else if(msg.content.toLowerCase() === 'g!randomusic'){
+		}else if(msg.content.toLowerCase() === 'g!btc'){
+			this.btc(msg);
+		}
+		else if(msg.content.toLowerCase() === 'g!randomusic'){
 			this.randomusic(msg);
+		} else if(msg.content.toLowerCase() === 'g!randomchamp'){
+			this.randomChamp(msg);
 		}
 		else {
 			for(var key in sonidos){

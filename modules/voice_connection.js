@@ -15,22 +15,26 @@ class VoiceConnection {
 
   	connect() {  		
   		return new Promise((resolve, reject) => {
-    		if(VoiceConnection.connected == true){	 
-  				setTimeout(() =>{	
-  						this.connect()
-  						.then(() => {resolve(); })
-  						.catch(() => {reject();});
-  					} ,1000);
-  			} else {
-	    		this.channel.join().then(conn =>{
-		  			VoiceConnection.connected = true;
-		  			this.connection = conn;
-		  			resolve(); 
-			  	}).catch(e => {
-		        	console.log(e);
-		        	reject();
-		        });
-		    }
+			if(this.channel == null){
+				reject();
+			} else{
+				if(VoiceConnection.connected == true){	 
+					setTimeout(() =>{	
+							this.connect()
+							.then(() => {resolve(); })
+							.catch(() => {reject();});
+						} ,1000);
+				} else {
+				  this.channel.join().then(conn =>{
+						VoiceConnection.connected = true;
+						this.connection = conn;
+						resolve(); 
+					}).catch(e => {
+					  console.log(e);
+					  reject();
+				  });
+			  }
+			}    		
     	});		
 	    
   	}
