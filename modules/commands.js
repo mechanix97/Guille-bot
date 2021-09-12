@@ -97,40 +97,34 @@ class Command {
             if(message.content.toLowerCase() == 'top'){
 				var champs = getChampionsByPosition('Top');
 				const n = Math.floor(Math.random() * champs.length);
-				selectedChamp = champs[n].name
+				selectedChamp = champs[n]
 			} else if(message.content.toLowerCase() == 'jg'){
 				var champs = getChampionsByPosition('Jungler');
 				const n = Math.floor(Math.random() * champs.length);
-				selectedChamp = champs[n].name
+				selectedChamp = champs[n]
 			} else if (message.content.toLowerCase() == 'mid'){
 				var champs = getChampionsByPosition('Mid');
 				const n = Math.floor(Math.random() * champs.length);
-				selectedChamp = champs[n].name
+				selectedChamp = champs[n]
 			} else if(message.content.toLowerCase() == 'adc'){
 				var champs = getChampionsByPosition('AD Carry');
 				const n = Math.floor(Math.random() * champs.length);
-				selectedChamp = champs[n].name
+				selectedChamp = champs[n]
 			} else if (message.content.toLowerCase() == 'supp'){
 				var champs = getChampionsByPosition('Support');
 				const n = Math.floor(Math.random() * champs.length);
-				selectedChamp = champs[n].name
+				selectedChamp = champs[n]
 			} else if (message.content.toLowerCase() == 'rand'){
 				const n = Math.floor(Math.random() * champions.length);
-				selectedChamp = champions[n].name
+				selectedChamp = champions[n]
 			} else {
 				message.channel.send("Te equivocaste de linea crack")
 				return;
 			}
 
-			var champName = selectedChamp.split(' ')[0];
-			champName = champName.replace('\'','')
-			if(champName == 'Aurelion'){
-				champName = 'AurelionSol'
-			}
-			var champImageURL = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/"+ champName+ "_0.jpg"
-			message.channel.send("Juga " + selectedChamp ,{files: [champImageURL]})
+			message.channel.send("Juga " + selectedChamp.name ,{files: [selectedChamp.url]})
 			if(msg.member.voice.channel){
-    			msg.content = "g!loquendo Jugate una partidita con " + selectedChamp + ", Rey";
+    			msg.content = "g!loquendo Jugate una partidita con " + selectedChamp.name + ", Rey";
 				this.loquendo(msg, "es");
 			}
         })
