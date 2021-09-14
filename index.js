@@ -16,6 +16,6 @@ client.on('message', msg => {
 });
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
-  	command.entranceCheck(oldMember, newMember);
+  	//command.entranceCheck(oldMember, newMember);
 });
 
