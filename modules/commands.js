@@ -218,7 +218,7 @@ class Command {
 		}
 	 
 		download.image(options)
-	  	.then(({ filename }) => {
+	  	.then(() => {
 	    	const image = sharp('temp/profile.webp');
 			image
 			.metadata()
@@ -255,52 +255,6 @@ class Command {
 		}
 	}
 
-	entrada(msg){
-		msg.member.presence.activities.forEach(console.log);
-		msg.reply("Sorry bro, esta en mantenimiento");
-		return;
-		/*var str = msg.content;
-		var res = str.split(" ");
-		var text = '';
-		if(res.length > 1){
-			for(var i = 1 ; i<res.length; i++){
-				text = text.concat(res[i]);
-			}
-		}
-		if(text.toLowerCase() === 'on'){
-			var esta = false;
-			for(var i = 0; i < arrEntrada.length; i++){
-				if(arrEntrada[i][0] === msg.author.id && arrEntrada[i][1] === msg.guild.id){
-					esta = true;
-				} 
-			}
-			if(esta == true){
-				msg.reply("Ya lo tenes prendido, pavo");	
-			} else {
-				arrEntrada.push([msg.author.id, msg.guild.id]);
-			}
-		} else if(text.toLowerCase() === 'off'){
-			const index = arrEntrada.indexOf([msg.author.id, msg.guild.id]);
-			if (index > -1) {
-			  arrEntrada.splice(index, 1);
-			}
-		} else if(text.toLowerCase() === 'reset'){
-			arrEntrada = [];
-		} else if(text.toLowerCase() === 'status'){
-			console.log("g!entrara",arrEntrada);
-		}
-		 else {
-			msg.reply("El comando se usa:\n\tg!entrada <ON/OFF>");
-			return;
-		}	
-	 	const jsonContent = JSON.stringify(arrEntrada);
-		fs.writeFile("bin/entry.json", jsonContent, 'utf8', function (err) {
-		    if (err) {
-		        console.log(err);
-		    }
-		}); */
-	}
-
 	loquendo(msg, lenguage){
 		var str = msg.content;
 		var res = str.split(" ");
@@ -315,8 +269,11 @@ class Command {
 				return;
 			}
 			txtomp3.attributes.tl = lenguage;
-			txtomp3.saveMP3(text, 'temp/temp.mp3').then(() => {
-				this.playSound(msg,'temp/temp.mp3', true);
+			var d = new Date();
+			var n = d.getTime();
+			var filename = 'temp/loquendo_'+ n +'.mp3';
+			txtomp3.saveMP3(text, filename).then(() => {
+				this.playSound(msg, filename, true);
 			}).catch(function(err){		
 				if(err instanceof TypeError){
 					msg.reply('Mensaje invalido, monito.');
@@ -357,33 +314,31 @@ class Command {
 
 	exec(msg, client){
 		if (msg.content.toLowerCase() === 'g!help'){
-			msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo\n\tg!entrada <ON/OFF> activar entrada epica.\n\tg!sentaste <USUARIO> para sentar a alguien.\n\tg!dolar para saber la cotización del dolar.')
+			msg.reply('Comandos:\n\tg!sonidos para ver lista de sonidos.'
+			+'\n\tg!guillote para ver sorpresa \n\tg!loquendo <texto> para reproducir como loquendo'
+			+'\n\tg!sentaste <USUARIO> para sentar a alguien.'
+			+'\n\tg!dolar para saber la cotización del dolar.')
 		} else if (msg.content.toLowerCase() === 'g!sonidos'){
 			this.displaySounds(msg);
 		} else if(msg.content.toLowerCase().startsWith('g!sentaste')){
 			this.sentaste(msg, client);
 		} else if(msg.content.toLowerCase() === 'g!dato'){
 			this.dato(msg);
-		}
-		else if(msg.content.toLowerCase() === 'g!guillote'){
+		} else if(msg.content.toLowerCase() === 'g!guillote'){
 			msg.reply('Que onda mono?',{files: [imagePath+'profile.png']});
 		} else if(msg.content.toLowerCase().startsWith('g!loquendo ')){
 			this.loquendo(msg,"es");
 		} else if(msg.content.toLowerCase().startsWith('g!loquendobr ')){
 			this.loquendo(msg,"pt");		
-		} else if(msg.content.toLowerCase().startsWith('g!entrada ')){
-			this.entrada(msg);
-		}else if(msg.content.toLowerCase() === 'g!dolar'){
+		} else if(msg.content.toLowerCase() === 'g!dolar'){
 			this.dolar(msg);
-		}else if(msg.content.toLowerCase() === 'g!btc'){
+		} else if(msg.content.toLowerCase() === 'g!btc'){
 			this.btc(msg);
-		}
-		else if(msg.content.toLowerCase() === 'g!randomusic'){
+		} else if(msg.content.toLowerCase() === 'g!randomusic'){
 			this.randomusic(msg);
 		} else if(msg.content.toLowerCase() === 'g!randomchamp'){
 			this.randomChamp(msg);
-		}
-		else {
+		} else {
 			for(var key in sonidos){
 				if(msg.content.toLowerCase() === key){
 					this.playSound(msg,soundPath+sonidos[key],false);
@@ -391,16 +346,6 @@ class Command {
 			}
 		}
 	}	
-	
-	entranceCheck(oldMember, newMember){
-		if(newMember.channelID != null && newMember.channelID != oldMember.channelID && newMember.channel.members.size > 1){
-  			for(var i = 0; i<arrEntrada.length; i++){
- 				if(arrEntrada[i][0] == newMember.id && arrEntrada[i][1] == newMember.guild.id){
-					this.PlaySound(newMember,soundPath+'queondamonito.mp3',false);
- 				}
-  			}
-  		}
-  	}
 }
 
 
