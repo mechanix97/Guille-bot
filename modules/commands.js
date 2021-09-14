@@ -256,6 +256,52 @@ class Command {
 	}
 
 	loquendo(msg, lenguage){
+		return new Promise((resolve, reject) => {
+			if(msg == null){
+				reject('NO MSG')
+			} else{
+				var str = msg.content;
+				var res = str.split(" ");
+				var text = '';
+				if(res.length > 1){
+					for(var i = 1 ; i<res.length; i++){
+						text = text.concat(res[i],' ');
+					}
+					text = utf8.encode(text);
+					if(text.length >= 200){
+						msg.reply('Te exediste de caracteres, papu.');
+						resolve()
+					}
+					txtomp3.attributes.tl = lenguage;
+					var d = new Date();
+					var n = d.getTime();
+					var filename = 'temp/loquendo_'+ n +'.mp3';
+					txtomp3.saveMP3(text, filename).then(() => {	
+						var voiceConnection = new VoiceConnection(msg);
+						voiceConnection.connect().then(() => { 
+							voiceConnection.playSound(file, destroy).then(() => {
+								voiceConnection.disconnect().then(() => {
+									setTimeout(() => {  
+										try{
+											fs.unlinkSync(file);
+											resolve();
+										} catch(err){
+											reject(err);
+										}									
+									}, 100);
+								})
+							})
+						})
+					})
+				} else {
+					reject('INVALID MSG')
+				}
+			}
+		});
+		
+		
+		
+		/*
 		var str = msg.content;
 		var res = str.split(" ");
 		var text = '';
@@ -272,6 +318,11 @@ class Command {
 			var d = new Date();
 			var n = d.getTime();
 			var filename = 'temp/loquendo_'+ n +'.mp3';
+
+			voiceConnection.connect().then(() => {
+			
+			});
+
 			txtomp3.saveMP3(text, filename).then(() => {
 				this.playSound(msg, filename, true);
 			}).catch(function(err){		
@@ -286,7 +337,7 @@ class Command {
 			});
 		} else {
 			msg.reply('Pone un mensaje, bola.');
-		}
+		}*/
 	}
 
 	dolar(msg){
