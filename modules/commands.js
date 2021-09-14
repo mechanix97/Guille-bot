@@ -132,7 +132,7 @@ class Command {
 	  
 	randomusic(msg){
 		const n = Math.round(Math.random() * playlists.length)-1;
-		msg.channel.send("!p "+playlists[n])
+		msg.channel.send(".p "+playlists[n])
 	}
 
 	playSound(msg, archivo, destruir){
