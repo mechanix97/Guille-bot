@@ -125,7 +125,7 @@ class Command {
 			message.channel.send("Juga " + selectedChamp.name ,{files: [selectedChamp.url]})
 			if(msg.member.voice.channel){
     			msg.content = "g!loquendo Jugate una partidita con " + selectedChamp.name + ", Rey";
-				this.loquendo(msg, "es");
+				this.loquendo(msg, "es").catch((err) =>{})
 			}
         })
 	}
@@ -251,7 +251,7 @@ class Command {
 		.catch((err) => console.error(err));
 		if(msg.member.voice.channel){
 			msg.content = "g!loquendo Noooooooooooo "+ user.username + ", donde te sentastes?";
-			this.loquendo(msg, "es");	
+			this.loquendo(msg, "es").catch((err) =>{})
 		}
 	}
 
@@ -267,7 +267,7 @@ class Command {
 					for(var i = 1 ; i<res.length; i++){
 						text = text.concat(res[i],' ');
 					}
-					text = utf8.encode(text);
+					//text = utf8.encode(text);
 					if(text.length >= 200){
 						msg.reply('Te exediste de caracteres, papu.');
 						resolve()
@@ -279,11 +279,11 @@ class Command {
 					txtomp3.saveMP3(text, filename).then(() => {	
 						var voiceConnection = new VoiceConnection(msg);
 						voiceConnection.connect().then(() => { 
-							voiceConnection.playSound(file, destroy).then(() => {
+							voiceConnection.playSound(filename).then(() => {
 								voiceConnection.disconnect().then(() => {
 									setTimeout(() => {  
 										try{
-											fs.unlinkSync(file);
+											fs.unlinkSync(filename);
 											resolve();
 										} catch(err){
 											reject(err);
@@ -291,60 +291,31 @@ class Command {
 									}, 100);
 								})
 							})
+						}).catch((err) =>{
+							console.log("ERR LOQUENDO " + err)
+							try{
+								fs.unlinkSync(filename);
+								reject(err);
+							} catch(errr){
+								reject(errr);
+							}	
 						})
+					}).catch((err) =>{
+						console.log("ERR LOQUENDO " + err)
+						reject(err);				
 					})
 				} else {
 					reject('INVALID MSG')
 				}
 			}
 		});
-		
-		
-		
-		/*
-		var str = msg.content;
-		var res = str.split(" ");
-		var text = '';
-		if(res.length > 1){
-			for(var i = 1 ; i<res.length; i++){
-				text = text.concat(res[i],' ');
-			}
-			text = utf8.encode(text);
-			if(text.length >= 200){
-				msg.reply('Te exediste de caracteres, papu.');
-				return;
-			}
-			txtomp3.attributes.tl = lenguage;
-			var d = new Date();
-			var n = d.getTime();
-			var filename = 'temp/loquendo_'+ n +'.mp3';
-
-			voiceConnection.connect().then(() => {
-			
-			});
-
-			txtomp3.saveMP3(text, filename).then(() => {
-				this.playSound(msg, filename, true);
-			}).catch(function(err){		
-				if(err instanceof TypeError){
-					msg.reply('Mensaje invalido, monito.');
-				} else if(err.code === 'ENOENT'){
-					this.loquendo(msg, lenguage);
-				}else {
-					console.log("Error LOQUENDO", err);
-					msg.reply('Error desconocido, avisale al Mechanix más cercano.');
-				}
-			});
-		} else {
-			msg.reply('Pone un mensaje, bola.');
-		}*/
 	}
 
 	dolar(msg){
 		httpRequest(optionsDolar).then(cotizacion => {
 			if(msg.member.voice.channel){
-    			msg.content = "g!loquendo La cotizacion del dolar es de "+ cotizacion.compra + " pesos para la compra y"+ cotizacion.venta +" pesos para la venta.";
-				this.loquendo(msg, "es");
+    			msg.content = "g!loquendo La cotización del dolar es de "+ cotizacion.compra + " pesos para la compra y"+ cotizacion.venta +" pesos para la venta.";
+				this.loquendo(msg, "es").catch((err) => {})
 			}
 			msg.reply("Dolar:\n\tCompra: $"+ cotizacion.compra +"\n\tVenta: $"+ cotizacion.venta);
 			
@@ -355,8 +326,8 @@ class Command {
 	btc(msg){
 		httpRequest(optionsBTC).then(cotizacion => {			
 			if(msg.member.voice.channel){
-    			msg.content = "g!loquendo La cotizacion del Bitcoin es de "+ Math.floor(cotizacion.USD.last/1000) +"mil"+ Math.floor(cotizacion.USD.last%1000) + " dolares";
-				this.loquendo(msg, "es");
+    			msg.content = "g!loquendo La cotización del Bitcoin es de "+ Math.floor(cotizacion.USD.last/1000) +"mil"+ Math.floor(cotizacion.USD.last%1000) + " dolares";
+				this.loquendo(msg, "es").catch((err) =>{})
 			}
 			msg.reply("Bitcoin: u$d " +  Math.floor(cotizacion.USD.last));
 			
@@ -378,9 +349,9 @@ class Command {
 		} else if(msg.content.toLowerCase() === 'g!guillote'){
 			msg.reply('Que onda mono?',{files: [imagePath+'profile.png']});
 		} else if(msg.content.toLowerCase().startsWith('g!loquendo ')){
-			this.loquendo(msg,"es");
+			this.loquendo(msg,"es").catch((err) =>{})
 		} else if(msg.content.toLowerCase().startsWith('g!loquendobr ')){
-			this.loquendo(msg,"pt");		
+			this.loquendo(msg,"pt").catch((err) =>{})		
 		} else if(msg.content.toLowerCase() === 'g!dolar'){
 			this.dolar(msg);
 		} else if(msg.content.toLowerCase() === 'g!btc'){

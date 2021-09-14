@@ -19,7 +19,7 @@ class VoiceConnection {
 				reject('MAX ATTEMPTS')
 			} else {
 				if(attempt === undefined){
-					attempt = 10;
+					attempt = 25;
 				}
 				if(this.channel == null){
 					reject('No channel');
@@ -54,9 +54,9 @@ class VoiceConnection {
 		});
 	}
 
-	playSound(archivo) {
+	playSound(file) {
 		return new Promise((resolve, reject) => {
-			const dispatcher = this.connection.play(archivo);
+			const dispatcher = this.connection.play(file);
 			dispatcher.on('finish', () => {
 				dispatcher.destroy();
 				resolve();
