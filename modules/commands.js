@@ -146,12 +146,12 @@ class Command {
 						voiceConnection.disconnect().then(() => {
 							if(destroy){
 								setTimeout(() => {  
-									fs.unlinkSync(file).then(() =>{
+									try{
+										fs.unlinkSync(file);
 										resolve();
-									}).catch((err) => {
-										console.log(err);
+									} catch(err){
 										reject(err);
-									})									
+									}									
 								}, 100);
 							} else {
 								resolve();

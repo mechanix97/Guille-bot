@@ -63,7 +63,7 @@ class VoiceConnection {
 			});
 			dispatcher.on('error', e =>{
 				console.log(e);
-				reject();
+				reject(e);
 			});
 			this.connection.on('disconnect', () =>{
 				resolve();
