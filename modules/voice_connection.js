@@ -13,34 +13,41 @@ class VoiceConnection {
   		return VoiceConnection.connected;
   	}
 
-  	connect() {  		
+  	connect(attempt) {  		
   		return new Promise((resolve, reject) => {
-			if(this.channel == null){
-				reject();
-			} else{
-				if(VoiceConnection.connected == true){	 
-					setTimeout(() =>{	
-							this.connect()
-							.then(() => {resolve(); })
-							.catch(() => {reject();});
-						} ,1000);
-				} else {
-				  this.channel.join().then(conn =>{
-						VoiceConnection.connected = true;
-						this.connection = conn;
-						resolve(); 
-					}).catch(e => {
-					  console.log(e);
-					  reject();
-				  });
-			  }
-			}    		
+			if(attempt == 0){
+				reject('MAX ATTEMPTS')
+			} else {
+				if(attempt === undefined){
+					attempt = 10;
+				}
+				if(this.channel == null){
+					reject('No channel');
+				} else{
+					if(VoiceConnection.connected == true){	 
+						setTimeout(() =>{	
+								this.connect(attempt - 1)
+								.then((ret) => {resolve(ret); })
+								.catch((err) => {reject(err);});
+							} ,1000);
+					} else {
+					  this.channel.join().then(conn =>{
+							VoiceConnection.connected = true;
+							this.connection = conn;
+							resolve(); 
+						}).catch(e => {
+						  console.log(e);
+						  reject(e);
+					  });
+				  }
+				}
+			}			    		
     	});		
 	    
   	}
 
 	disconnect(){
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve) => {
 			this.connection.disconnect();
 			VoiceConnection.connected = false;
 			resolve();

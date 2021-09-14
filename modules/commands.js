@@ -135,28 +135,41 @@ class Command {
 		msg.channel.send(".p "+playlists[n])
 	}
 
-	playSound(msg, archivo, destruir){
-		if(msg == null){
-			return;
-		}
-		var voiceConnection = new VoiceConnection(msg);
-		voiceConnection.connect().then(() => {
-			voiceConnection.playSound(archivo, destruir).then(() => {
-				voiceConnection.disconnect().then(() => {
-					setTimeout(() => {  
-						if(destruir){
-							try{	
-						   		fs.unlinkSync(archivo);	
-						   	} catch(err){
-						   		console.log(err);
-						   	}
-						} 
-					}, 100);
+	playSound(msg, file, destroy){
+		return new Promise((resolve, reject)=>{
+			if(msg == null){
+				reject('NO MSG');
+			} else {
+				var voiceConnection = new VoiceConnection(msg);
+				voiceConnection.connect().then(() => {
+					voiceConnection.playSound(file, destroy).then(() => {
+						voiceConnection.disconnect().then(() => {
+							if(destroy){
+								setTimeout(() => {  
+									fs.unlinkSync(file).then(() =>{
+										resolve();
+									}).catch((err) => {
+										console.log(err);
+										reject(err);
+									})									
+								}, 100);
+							} else {
+								resolve();
+							}
+
+						});
+					}); 
+				}).catch((err) =>{
+					if(err == 'No channel'){
+						msg.reply("Metete en un canal papá frita.")
+						resolve()
+					} else {
+						console.log(err)
+						reject(err)
+					}	
 				});
-			}); 
-		}).catch(() =>{
-			msg.reply("Metete en un canal papá frita.")
-		});
+			}
+		})
 	}
 
 	displaySounds(msg) {
@@ -304,14 +317,13 @@ class Command {
 			txtomp3.attributes.tl = lenguage;
 			txtomp3.saveMP3(text, 'temp/temp.mp3').then(() => {
 				this.playSound(msg,'temp/temp.mp3', true);
-			})
-			.catch(function(err){		
+			}).catch(function(err){		
 				if(err instanceof TypeError){
 					msg.reply('Mensaje invalido, monito.');
 				} else if(err.code === 'ENOENT'){
 					this.loquendo(msg, lenguage);
 				}else {
-					console.log("Error", err);
+					console.log("Error LOQUENDO", err);
 					msg.reply('Error desconocido, avisale al Mechanix más cercano.');
 				}
 			});
